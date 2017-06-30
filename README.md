@@ -50,38 +50,47 @@ And it contains `rules`, which are inline elements used to format text according
 =[tag]
 link list
 `
+
 `
 -[tag]
 title list
 `
+
 `
 *[text]
 subtitle
 `
+
 `
 $[artifact>attribute]
 reference to artifact's attribute
 `
+
 `
 #[project]
 local link
 `
+
 `
 @[text>link]
 custom link
 `
+
 `
 &[dir>img]
 image
 `
+
 `
 ![text]
 bold
 `
+
 `
 _[text]
 italic
 `
+
 `
 %[]
 div
@@ -97,10 +106,12 @@ Special syntax (syntax that does not conform to the `symbol[data]` format) is ve
 +
 line break
 `
+
 `
 >
 accessor
 `
+
 `
 //
 comment
