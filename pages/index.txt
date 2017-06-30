@@ -1,0 +1,22 @@
+name: Index
+
+image: example>example image bright
+
+image name: #[Image Name]
+
+tags: page, content
+
+title: This is the #[Index].
+
+content: %[]
+This is an example setup for an instance of _[Purity].
++
++
+All parsing is done through _[Purity], and the layout and styling is done in HTML/PHP and CSS. Feel free to use any part of this setup.
++
++
+There are a total of 3 pages here.
+
+=[page]
+
+%[]

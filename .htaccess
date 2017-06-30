@@ -1,0 +1,9 @@
+RewriteEngine on
+
+DirectoryIndex page.php
+
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ /page.php?v=$1 [NC,L]

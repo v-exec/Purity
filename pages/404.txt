@@ -1,0 +1,23 @@
+name: 404
+
+image: example>example image dark
+
+image name: #[404]
+
+white: true
+
+github: https://github.com/v-exec/Purity
+
+tags: page, 404
+
+title: Page _[$[self]] could not be found.
+
+content: %[]
+This page could not be found.
++
++
+Only two other pages exist in this instance of Purity.
+
+*[Other pages:]
+-[content]
+%[]
