@@ -46,37 +46,46 @@ content: text
 
 And it contains `rules`, which are inline elements used to format text according to predetermined functions. Most `rules`' formatting can have a custom style, which is applied in the parser.
 
-```
+`
 =[tag]
 link list
-
+`
+`
 -[tag]
 title list
-
+`
+`
 *[text]
 subtitle
-
+`
+`
 $[artifact>attribute]
 reference to artifact's attribute
-
+`
+`
 #[project]
 local link
-
+`
+`
 @[text>link]
 custom link
-
+`
+`
 &[dir>img]
 image
-
+`
+`
 ![text]
 bold
-
+`
+`
 _[text]
 italic
-
+`
+`
 %[]
 div
-```
+`
 
 `attributes` that take 'text' (as seen above) are capable of containing any given number of number of elements formatted through `rules`, and any given degree of nested `rules`.
 
@@ -84,13 +93,18 @@ div
 
 Special syntax (syntax that does not conform to the `symbol[data]` format) is very minimal.
 
-```
-`+`							line break
-
-`>`							accessor
-
-`//`						comment
-```
+`
++
+line break
+`
+`
+>
+accessor
+`
+`
+//
+comment
+`
 
 The text written for _Purity_  is _not_ parsed using whitespace, therefore line breaks for the content must declared through `+`.
 
