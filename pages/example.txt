@@ -12,8 +12,7 @@ tags: page, content
 
 title: The #[example] page covers all the _[rules] of _[Purity].
 
-content: %[]
-In this page are showcased all _[rules] in _[Purity].
+content: In this page are showcased all _[rules] in _[Purity].
 +
 +
 Every rule is declared by placing a symbol immediately behind a set of square brackets [].
@@ -103,5 +102,3 @@ _[Italic text.]
 +
 +
 Creates custom styled divider, as seen numerous times in this page.
-
-%[]

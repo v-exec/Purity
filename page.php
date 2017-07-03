@@ -57,43 +57,43 @@ if ($artifact->attributes['white'] == 'true') {
 ?>
 
 <body>
-	<div id="body">
-		<div id="header">
-			<div class="header-image" style="background-image: url(<?php echo $artifact->attributes['image'];?>)">
-				<span class="header-title"><?php echo $artifact->attributes['image name'];?></span>
-			</div>
+	<div id="header">
+		<div class="header-image" style="background-image: url(<?php echo $artifact->attributes['image'];?>)">
+			<span class="header-title"><?php echo $artifact->attributes['image name'];?></span>
 		</div>
+	</div>
 
-		<div id="body-content">
-			<h1 class="title"><?php echo $artifact->attributes['title'];?></h1>
-			<!--
-			An artifact's `content` attribute must be placed inside a <p> tag with the class "text" assigned to it.
-			This is because block elements break the <p> tag.
+	<div id="title">
+		<h1 class="title"><?php echo $artifact->attributes['title'];?></h1>
+	</div>
 
-			The parser automatically starts another <p class="text"> after those elements, which is why the content needs
-			to be in a <p class="text"> tag.
+	<div id="body">
+		<!--
+		An artifact's `content` attribute must be placed inside a <p> tag with the class "text" assigned to it.
+		This is because block elements break the <p> tag.
 
-			If you wish to use another class name, this can be changed by simply switching the class name for your own,
-			inside the parser functions: createTitleList, createLinkList, createDivider, createSubtitle.
-			-->
-			<p class="text"><?php echo $artifact->attributes['content'];?></p>
-			<p class="text">Tags:
-				<?php
-				if ($artifact->tags) {
-					foreach($artifact->tags as $tag) {
-						if ($tag !== end($artifact->tags)) echo $tag.', ';
-						else echo $tag;
-					}
-				}
-				?>
-			</p>
-			</div>
+		The parser automatically starts another <p class="text"> after those elements, which is why the content needs
+		to be in a <p class="text"> tag.
+
+		If you wish to use another class name, this can be changed by simply switching the class name for your own,
+		inside the parser functions: createTitleList, createLinkList, createDivider, createSubtitle.
+		-->
+		<p class="text"><?php echo $artifact->attributes['content'];?></p>
+		</p>
 	</div>
 
 	<div id="footer">
 		<p class="text">
-		This is the footer.
-		<?php if ($artifact->attributes['github']) echo '<br><span class="github">'.$artifact->attributes['github'].'</span>';?>
+		Tags:
+		<?php
+			if ($artifact->tags) {
+				foreach($artifact->tags as $tag) {
+					if ($tag !== end($artifact->tags)) echo $tag.', ';
+					else echo $tag;
+				}
+			}
+		?>
+		<?php if ($artifact->attributes['github']) echo '<br><br><span class="github">'.$artifact->attributes['github'].'</span>';?>
 		</p>
 	</div>
 </body>

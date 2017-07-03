@@ -10,14 +10,12 @@ github: https://github.com/v-exec/Purity
 
 tags: page, 404
 
-title: Page _[$[self]] could not be found.
+title: The #[404] page is shown whenever an _[artifact] can't be found.
 
-content: %[]
-This page could not be found.
+content: This is the #[404] page. Seems like you tried to search for _[$[self]] and couldn't find it.
 +
 +
 Only two other pages exist in this instance of Purity.
 
 *[Other pages:]
 -[content]
-%[]
