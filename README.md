@@ -101,17 +101,20 @@ title: An #[artifact] is an object created through #[Purity].
 
 content: Here is a list of all my #[projects]:
 +
-*[Projects Title!]
+
+//this creates a subtitle "Projects Title!", where "projects" is also a link
+*[#[Projects] Title!]
 +
+
+//this creates a link list of all artifacts with the tag 'project'
 =[projects]
 +
 
-//this fetches the title attribute from the artifact 'projects'
+//this fetches the 'title' attribute from the artifact 'projects'
 $[projects>title]
-
 +
 
-Here is an [external link>http://website.com].
+Here is an @[external link>http://website.com].
 
 +
 
