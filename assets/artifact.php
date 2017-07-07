@@ -24,8 +24,6 @@ class Artifact {
 
 	//constructor parses file to retrieve its contents
 	public function __construct($filePath) {
-		$inContent = false;
-		$inTitle = false;
 		$file = fopen($filePath, 'r');
 
 		if ($file) {
@@ -37,8 +35,7 @@ class Artifact {
 				$newKey = false;
 
 				//skip lines starting with '//' and empty lines
-				if ((substr($line, 0, 2)) === '//') continue;
-				if (strlen($line) == 2) continue;
+				if ((substr($line, 0, 2)) === '//' || strlen($line) == 2) continue;
 
 				//get tags (unique retrieval due to it being an array)
 				if (substr($line, 0, 5) === 'tags:') {
@@ -58,7 +55,7 @@ class Artifact {
 				}
 
 				//if key wasn't found, continue adding to the previously acquired attribute
-				if ($newKey == false) {
+				if (!$newKey) {
 					if (strlen($line) == 3 && substr($line, 0, 1) === '+') $this->attributes[$currentKey] = $this->attributes[$currentKey].'<br>';
 					else $this->attributes[$currentKey] = $this->attributes[$currentKey].$line;
 				}

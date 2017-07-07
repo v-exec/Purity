@@ -312,7 +312,7 @@ class Parser {
 		return $all;
 	}
 
-	//removes symbol and [] (first two characters and last character) from #string
+	//removes symbol and [] (first two characters and last character) from $string
 	private function cleanString($string) {
 		$string = substr_replace($string, '', -1);
 		$string = substr_replace($string, '', 0, 2);
