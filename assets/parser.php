@@ -17,10 +17,17 @@ class Parser {
 		['audio', 'audio'],
 		['visual', 'visual'],
 		['code', 'code'],
+		['tool', 'tools'],
+		['interactive', 'interactive'],
+		['display', 'display'],
 		['graphic', 'graphic'],
 		['photography', 'photography'],
 		['single', 'singles'],
 		['album', 'albums'],
+		['people', 'people'],
+		['person', 'people'],
+		['location', 'locations'],
+		['system', 'systems'],
 		['secret', 'secret']
 	);
 
