@@ -42,6 +42,8 @@ title: text
 content: text
 ```
 
+All `attributes`, aside from `name` are optional, and can be omitted without issue. They can also be declared in any order.
+
 #### Rules
 
 And it contains `rules`, which are inline elements used to format text according to predetermined functions. Most `rules`' formatting can have a custom style, which is applied in the parser.
