@@ -20,9 +20,9 @@ Every rule is declared by placing a symbol immediately behind a set of square br
 +
 Taking a look at the artifact declaration of this page should make this section easier to follow.
 
-*[List of _[rules], each with example.]
+![List of _[rules], each with example.]
 
-%[]
+%[======================================]
 = [tag] link list
 +
 +
@@ -30,21 +30,49 @@ Creates a list of artifacts that have this tag.
 =[page]
 
 
-%[]
+%[======================================]
 - [tag] title list
 +
 +
 Creates a list of artifacts' titles that have this tag.
 -[page]
 
-%[]
-* [text] subtitle
+%[======================================]
+= [text1, text2] condensed custom list
++
++
+Creates a condensed custom list of text items, seperated by commas.
+=[text1, text2]
+
+%[======================================]
+- [text1, text2] spacious custom list
++
++
+Creates a spacious custom list of text items, seperated by commas.
+-[text1, text2]
+
+%[======================================]
+? [text] indented quote
++
++
+Creates indented quotation.
+?[Quotation here.]
+
+%[======================================]
+~ [text] monospaced note
++
++
+Creates monospaced note.
+~[Monospaced note here.]
+
+%[======================================]
+! [text] subtitle
 +
 +
 Creates a subtitle. Subtitles can have nested _[rules] inside them.
-*[Subtitle with ![bold] and _[italic] text.]
+![Subtitle with *[bold] and _[italic] text.]
 
-%[]
+%[======================================]
 $ [artifact>attribute] reference to artifact's attribute
 +
 +
@@ -53,7 +81,7 @@ Takes an artifact's attribute and outputs it. In this case, we're referencing #[
 +
 $[index>title]
 
-%[]
+%[======================================]
 # [project] local link
 +
 +
@@ -62,7 +90,7 @@ Creates a link to an artifact, if it exists.
 +
 Link to the #[index].
 
-%[]
+%[======================================]
 @ [text>link] custom link
 +
 +
@@ -71,23 +99,23 @@ Creates a custom link to any given URL.
 +
 @[Custom link>https://github.com/v-exec/Purity]
 
-%[]
+%[======================================]
 & [dir>img] image
 +
 +
 Creates an image.
 &[example>example image dark]
 
-%[]
-! [text] bold
+%[======================================]
+* [text] bold
 +
 +
 Makes text bold.
 +
 +
-![Bold text.]
+*[Bold text.]
 
-%[]
+%[======================================]
 _ [text] italic
 +
 +
@@ -97,7 +125,7 @@ Makes text italic.
 _[Italic text.]
 
 
-%[]
+%[======================================]
 % [] div
 +
 +

@@ -17,5 +17,5 @@ content: This is the #[404] page. Seems like you tried to search for _[$[self]] 
 +
 Only two other pages exist in this instance of Purity.
 
-*[Other pages:]
+![Other pages:]
 -[content]

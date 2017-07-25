@@ -49,11 +49,19 @@ All `attributes`, aside from `name` are optional, and can be omitted without iss
 And it contains `rules`, which are inline elements used to format text according to predetermined functions. Most `rules`' formatting can have a custom style, which is applied in the parser.
 
 ```
-[tag] link list
+=[tag] link list
 
-[tag] title list
+-[tag] title list
 
-*[text] subtitle
+=[text, text] compact custom list
+
+-[text, text] spacious custom list
+
+?[text] indented quote
+
+~[text] monospaced note
+
+![text] subtitle
 
 $[artifact>attribute] reference to artifact's attribute
 
@@ -63,7 +71,7 @@ $[artifact>attribute] reference to artifact's attribute
 
 &[dir>img] image
 
-![text] bold
+*[text] bold
 
 _[text] italic
 
@@ -107,11 +115,14 @@ content: Here is a list of all my #[projects]:
 +
 
 //this creates a subtitle "Projects Title!", where "projects" is also a link
-*[#[Projects] Title!]
+![#[Projects] Title!]
 +
 
 //this creates a link list of all artifacts with the tag 'project'
 =[projects]
+
+//and this creates a custom list of text elements, seperated by commas
+=[text1, text2, text3]
 +
 
 //this fetches the 'title' attribute from the artifact 'projects'
@@ -122,7 +133,7 @@ Here is an @[external link>http://website.com].
 
 +
 
-_[Italic] and ![bold] text.
+_[Italic] and *[bold] text.
 
 +
 

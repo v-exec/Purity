@@ -104,7 +104,7 @@ a.external:after {
 	bottom: 10px;
 }
 
-.link-list, .title-list {
+.condensed-list, .spacious-list {
 	padding: 0;
 	margin: 0;
 	width: 100%;
@@ -114,7 +114,7 @@ a.external:after {
 	margin-bottom: 20px;
 }
 
-.link-list li {
+.condensed-list li {
 	display: inline-block;
 	width: 30.5%;
 	margin-bottom: 12px;
@@ -124,7 +124,7 @@ a.external:after {
 	border-left: solid 1px #000;
 }
 
-.title-list li {
+.spacious-list li {
 	vertical-align: top;
 	display: inline-block;
 	width: 47.5%;
@@ -139,4 +139,21 @@ a.external:after {
 	width: 100%;
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+
+.note {
+	font-family: "Roboto Mono";
+	font-size: 14px;
+	width: 100%;
+	padding: 15px;
+	background-color: #f7f7f7;
+}
+
+.quote {
+	font-size: 18px;
+	width: 100%;
+	padding: 15px;
+	font-style: italic;
+	border-left: solid 1px #000;
+	background-color: #f7f7f7;
 }

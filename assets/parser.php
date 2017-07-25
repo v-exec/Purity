@@ -73,13 +73,15 @@ class Parser {
 			$this->formatText($artifact, 'content', '_', '');
 			$this->formatText($artifact, 'content', '!', '');
 			$this->formatText($artifact, 'content', '@', '');
+			$this->formatText($artifact, 'content', '~', '');
+			$this->formatText($artifact, 'content', '?', '');
 			$this->formatText($artifact, 'content', '&', 'class="text-image"');
 			$this->formatText($artifact, 'content', '%', 'class="small-divider"');
 			$this->formatText($artifact, 'content', '*', 'class="subtitle"');
 		}
 	}
 
-	//goes through remaining artifact attributes (ones that are dependant on the previous formats) and formats each one according to the existing formatting rules
+	//goes through remaining artifact attributes (ones that are dependant on the previous formats being complete) and formats each one according to the existing formatting rules
 	public function secondFormat($artifact) {
 		//format content
 		if ($artifact->attributes['content']) {
@@ -133,7 +135,7 @@ class Parser {
 				//depending on $symbol, run proper format rule
 				$string = substr($artifact->attributes[$attribute], $positions[0], $end - $positions[0] + 1);
 				switch ($symbol) {
-					case '*':
+					case '!':
 						$new = $this->createSubtitle($string, $style);
 						break;
 					
@@ -145,12 +147,12 @@ class Parser {
 						$new = $this->createLink($string, $style);
 						break;
 
-					case '!':
-						$new = $this->makeBold($string);
+					case '*':
+						$new = $this->createBold($string);
 						break;
 
 					case '_':
-						$new = $this->makeItalic($string);
+						$new = $this->createItalic($string);
 						break;
 
 					case '%':
@@ -166,11 +168,19 @@ class Parser {
 						break;
 
 					case '-':
-						$new = $this->createTitleList($string);
+						$new = $this->createSpaciousList($string);
 						break;
 
 					case '=':
-						$new = $this->createLinkList($string);
+						$new = $this->createCondensedList($string);
+						break;
+
+					case '~':
+						$new = $this->createNote($string);
+						break;
+
+					case '?':
+						$new = $this->createQuote($string);
 						break;
 
 					default:
@@ -200,6 +210,10 @@ class Parser {
 
 		$string = $this->cleanString($string);
 		$accessor = strpos($string, '>');
+
+		//if accessor not found, return empty
+		if ($accessor == false) return '';
+
 		$word = trim(substr($string, 0, $accessor));
 		$link = trim(substr($string, $accessor + 1, strlen($string)));
 
@@ -208,29 +222,61 @@ class Parser {
 	}
 
 	//takes $string and creates title list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
-	private function createTitleList($string) {
+	private function createSpaciousList($string) {
 		global $artifacts;
 
 		$string = $this->cleanString($string);
 		$list = null;
 
-		for ($i = 0; $i < sizeof($artifacts); $i++) {
-			if ($artifacts[$i]->hasTag($string) && !$artifacts[$i]->hasTag('nav')) $list = $list.'<li>'.$artifacts[$i]->attributes['title'].'</li>';
+		//check if is custom list by checking if there are commas seperating text elements
+		if (strpos($string, ',') == false) {
+			for ($i = 0; $i < sizeof($artifacts); $i++) {
+				if ($artifacts[$i]->hasTag($string) && !$artifacts[$i]->hasTag('nav')) $list = $list.'<li>'.$artifacts[$i]->attributes['title'].'</li>';
+			}
+		} else {
+			$strings = explode(',', trim($string));
+			for ($i = 0; $i < sizeof($strings); $i++) {
+				$list = $list.'<li>'.trim($strings[$i]).'</li>';
+			}
 		}
-		return '</p><ul class="title-list">'.$list.'</ul><p class="text">';
+
+		return '</p><ul class="spacious-list">'.$list.'</ul><p class="text">';
 	}
 
 	//takes $string and creates link list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
-	private function createLinkList($string) {
+	private function createCondensedList($string) {
 		global $artifacts;
 
 		$string = $this->cleanString($string);
 		$list = null;
 
-		for ($i = 0; $i < sizeof($artifacts); $i++) {
-			if ($artifacts[$i]->hasTag($string) && !$artifacts[$i]->hasTag('nav')) $list = $list.'<li><a href="'.$artifacts[$i]->attributes['name'].'">'.$artifacts[$i]->attributes['name'].'</a></li>';
+		//check if is custom list by checking if there are commas seperating text elements
+		if (strpos($string, ',') == false) {
+			for ($i = 0; $i < sizeof($artifacts); $i++) {
+				if ($artifacts[$i]->hasTag($string) && !$artifacts[$i]->hasTag('nav')) $list = $list.'<li><a href="'.$artifacts[$i]->attributes['name'].'">'.$artifacts[$i]->attributes['name'].'</a></li>';
+			}
+		} else {
+			$strings = explode(',', trim($string));
+			for ($i = 0; $i < sizeof($strings); $i++) {
+				$list = $list.'<li>'.trim($strings[$i]).'</li>';
+			}
 		}
-		return '</p><ul class="link-list">'.$list.'</ul><p class="text">';
+
+		return '</p><ul class="condensed-list">'.$list.'</ul><p class="text">';
+	}
+
+	//takes $string and makes it into monospaced note (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
+	private function createNote($string) {
+		$string = $this->cleanString($string);
+		$string = '</p><div class="note">'.$string.'</div><p class="text">';
+		return $string;
+	}
+
+	//takes $string and makes it into indented quote (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
+	private function createQuote($string) {
+		$string = $this->cleanString($string);
+		$string = '</p><div class="quote">'.$string.'</div><p class="text">';
+		return $string;
 	}
 
 	//takes $string and makes it into image with custom $style, only returns image path if $returnImg == false
@@ -265,14 +311,14 @@ class Parser {
 	}
 
 	//takes $string and makes it italic
-	private function makeItalic($string) {
+	private function createItalic($string) {
 		$string = $this->cleanString($string);
 		$string = '<em>'.$string.'</em>';
 		return $string;
 	}
 
 	//takes $string and makes it bold
-	private function makeBold($string) {
+	private function createBold($string) {
 		$string = $this->cleanString($string);
 		$string = '<strong>'.$string.'</strong>';
 		return $string;
