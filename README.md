@@ -44,6 +44,8 @@ content: text
 
 All `attributes`, aside from `name` are optional, and can be omitted without issue. They can also be declared in any order.
 
+The attributes `github` and `white` are specific to [V-OS](http://v-os.ca). They can be used as a custom link and a custom boolean.
+
 #### Rules
 
 And it contains `rules`, which are inline elements used to format text according to predetermined functions. Most `rules`' formatting can have a custom style, which is applied in the parser.
@@ -69,7 +71,7 @@ $[artifact>attribute] reference to artifact's attribute
 
 @[text>link] custom link
 
-&[dir>img] image
+&[directory>image name] image
 
 *[text] bold
 
@@ -90,11 +92,11 @@ Special syntax (syntax that does not conform to the `symbol[data]` format) is ve
 
 `// comment`
 
-The text written for _Purity_  is _not_ parsed using whitespace, therefore line breaks for the content must declared through `+`.
+The text written for _Purity_  is _not_ parsed using whitespace, therefore, deliberate line breaks for content and titles must be declared through `+`.
 
 #### Example
 
-For a real-world example of an entire instance of _Purity_, take a look at the files found in this repo: they showcase a functional and tested example of a working instance.
+For a real-world example of an entire instance of _Purity_, take a look at the files found in this repo: they showcase a functional and tested example of a working instance. The example instance was made exclusively using HTML (page.php), CSS (/assets/styles/style.css), and text files (/pages), without touching any part of _Purity_ itself.
 
 Here is an example of an artifact that uses nearly all `rules`. At the moment, only one artifact can be declared per file. Meaning that multiple artifacts must each be declared in a separate file.
 

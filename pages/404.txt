@@ -1,12 +1,10 @@
 name: 404
 
-image: example>example image dark
+image: example>404
 
 image name: #[404]
 
 white: true
-
-github: https://github.com/v-exec/Purity
 
 tags: page, 404
 
@@ -15,7 +13,7 @@ title: The #[404] page is shown whenever an _[artifact] can't be found.
 content: This is the #[404] page. Seems like you tried to search for _[$[self]] and couldn't find it.
 +
 +
-Only two other pages exist in this instance of Purity.
+Only two other pages exist in this instance of _[Purity].
 
 ![Other pages:]
 -[content]

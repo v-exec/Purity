@@ -76,10 +76,9 @@ if ($artifact->attributes['white'] == 'true') {
 		to be in a <p class="text"> tag.
 
 		If you wish to use another class name, this can be changed by simply switching the class name for your own,
-		inside the parser functions: createTitleList, createLinkList, createDivider, createSubtitle.
+		inside the parser functions: createSpaciousList, createCondensedList, createDivider, createSubtitle, createNote, createQuote.
 		-->
 		<p class="text"><?php echo $artifact->attributes['content'];?></p>
-		</p>
 	</div>
 
 	<div id="footer">

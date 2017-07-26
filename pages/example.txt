@@ -1,10 +1,8 @@
 name: Example
 
-image: example>example image dark
+image: example>di
 
 image name: #[Example]
-
-github: https://github.com/v-exec/Purity
 
 white: true
 
@@ -19,8 +17,9 @@ Every rule is declared by placing a symbol immediately behind a set of square br
 +
 +
 Taking a look at the artifact declaration of this page should make this section easier to follow.
-
-![List of _[rules], each with example.]
++
++
+Here follows a list of all _[rules], a description for each one, and an accompanying example.
 
 %[======================================]
 = [tag] link list
@@ -104,7 +103,7 @@ Creates a custom link to any given URL.
 +
 +
 Creates an image.
-&[example>example image dark]
+&[example>one]
 
 %[======================================]
 * [text] bold

@@ -62,7 +62,7 @@ class Parser {
 		if ($artifact->attributes['title']) {
 			$this->formatText($artifact, 'title', '#', '');
 			$this->formatText($artifact, 'title', '_', '');
-			$this->formatText($artifact, 'title', '!', '');
+			$this->formatText($artifact, 'title', '*', '');
 			$this->formatText($artifact, 'title', '$', '');
 			$this->formatText($artifact, 'title', '@', '');
 		}
@@ -71,13 +71,13 @@ class Parser {
 		if ($artifact->attributes['content']) {
 			$this->formatText($artifact, 'content', '#', '');
 			$this->formatText($artifact, 'content', '_', '');
-			$this->formatText($artifact, 'content', '!', '');
+			$this->formatText($artifact, 'content', '*', '');
 			$this->formatText($artifact, 'content', '@', '');
 			$this->formatText($artifact, 'content', '~', '');
 			$this->formatText($artifact, 'content', '?', '');
 			$this->formatText($artifact, 'content', '&', 'class="text-image"');
 			$this->formatText($artifact, 'content', '%', 'class="small-divider"');
-			$this->formatText($artifact, 'content', '*', 'class="subtitle"');
+			$this->formatText($artifact, 'content', '!', 'class="subtitle"');
 		}
 	}
 

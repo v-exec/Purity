@@ -1,8 +1,8 @@
 name: Index
 
-image: example>example image bright
+image: example>one
 
-image name: #[Image Name]
+image name: #[Index]
 
 tags: page, content
 

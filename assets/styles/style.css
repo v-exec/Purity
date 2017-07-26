@@ -12,7 +12,7 @@ html {
 body {
 	margin: 0;
 	font-family: 'Roboto';
-	background-color: #111;
+	background-color: #aaa;
 }
 
 a {
@@ -28,7 +28,7 @@ a:hover {
 
 a.external:after {
 	content: "~";
-	color: #02f2aa;
+	color: #aaa;
 }
 
 /*Divisions*/
@@ -39,15 +39,15 @@ a.external:after {
 	width: 900px;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 50px;
 	background-color: #fff;
 }
 
 #body {
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 1px;
+	padding-bottom: 1px;
 	margin-top: 1px;
 	margin-bottom: 1px;
+	line-height: 26px;
 }
 
 
@@ -72,6 +72,8 @@ a.external:after {
 
 /*Text*/
 .text {
+	padding-left: 50px;
+	padding-right: 50px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	font-size: 18px;
@@ -79,14 +81,24 @@ a.external:after {
 
 .title {
 	font-size: 36px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.subtitle {
+	font-size: 34px;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 
 .small-divider {
 	width: 100%;
-	background-color: #000;
+	background-color: #aaa;
 	height: 1px;
 	margin-top: 20px;
-	margin-bottom: 20px
+	margin-bottom: 20px;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 
 .header-image {
@@ -98,7 +110,6 @@ a.external:after {
 
 .header-title {
 	position: absolute;
-	width: 100%;
 	font-size: 28px;
 	left: 10px;
 	bottom: 10px;
@@ -107,9 +118,10 @@ a.external:after {
 .condensed-list, .spacious-list {
 	padding: 0;
 	margin: 0;
+	padding-left: 50px;
+	padding-right: 50px;
 	width: 100%;
 	list-style-type: none;
-	line-height: 30px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
@@ -120,7 +132,7 @@ a.external:after {
 	margin-bottom: 12px;
 	margin-right: 20px;
 	padding-left: 15px;
-	background-color: #f7f7f7;
+	background-color: #f2f2f2;
 	border-left: solid 1px #000;
 }
 
@@ -132,7 +144,7 @@ a.external:after {
 	padding-left: 15px;
 	margin-right: 20px;
 	border-left: solid 1px #000;
-	background-color: #f7f7f7;
+	background-color: #f2f2f2;
 }
 
 .text-image {
@@ -141,19 +153,22 @@ a.external:after {
 	margin-bottom: 20px;
 }
 
+.note,
+.quote {
+	margin-left: 50px;
+	margin-right: 50px;
+	width: calc(100% - 100px);
+	padding: 15px;
+	background-color: #f2f2f2;
+}
+
 .note {
 	font-family: "Roboto Mono";
 	font-size: 14px;
-	width: 100%;
-	padding: 15px;
-	background-color: #f7f7f7;
 }
 
 .quote {
 	font-size: 18px;
-	width: 100%;
-	padding: 15px;
 	font-style: italic;
 	border-left: solid 1px #000;
-	background-color: #f7f7f7;
 }
