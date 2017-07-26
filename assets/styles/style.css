@@ -31,6 +31,15 @@ a.external:after {
 	color: #aaa;
 }
 
+.neutral-link {
+	text-decoration: none;
+	font-weight: 400;
+}
+
+.neutral-link:hover {
+	font-weight: 400;
+}
+
 /*Divisions*/
 #body,
 #footer,
@@ -49,7 +58,6 @@ a.external:after {
 	margin-bottom: 1px;
 	line-height: 26px;
 }
-
 
 #footer {
 	margin-bottom: 100px;
@@ -74,8 +82,8 @@ a.external:after {
 .text {
 	padding-left: 50px;
 	padding-right: 50px;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 	font-size: 18px;
 }
 
@@ -95,8 +103,8 @@ a.external:after {
 	width: 100%;
 	background-color: #aaa;
 	height: 1px;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 	padding-left: 50px;
 	padding-right: 50px;
 }
@@ -108,11 +116,15 @@ a.external:after {
 	background-position: center;
 }
 
-.header-title {
+.header-title-container {
 	position: absolute;
+	left: 20px;
+	bottom: 20px;
 	font-size: 28px;
-	left: 10px;
-	bottom: 10px;
+}
+
+.header-title {
+	font-size: 28px;
 }
 
 .condensed-list, .spacious-list {
@@ -122,8 +134,8 @@ a.external:after {
 	padding-right: 50px;
 	width: 100%;
 	list-style-type: none;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 .condensed-list li {

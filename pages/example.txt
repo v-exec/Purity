@@ -62,7 +62,12 @@ Creates indented quotation.
 +
 +
 Creates monospaced note.
-~[Monospaced note here.]
+~[
+Monospaced note here.
++
++
+The same formatting rules exist here as in the regular 'content' _[attribute].
+]
 
 %[======================================]
 ! [text] subtitle
@@ -103,7 +108,7 @@ Creates a custom link to any given URL.
 +
 +
 Creates an image.
-&[example>one]
+&[example>di]
 
 %[======================================]
 * [text] bold

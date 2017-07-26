@@ -54,8 +54,8 @@ class Parser {
 
 		//format image name
 		if ($artifact->attributes['image name']) {
-			$this->formatText($artifact, 'image name', '#', 'class="header-title netural-link"');
-			$this->formatText($artifact, 'image name', '@', 'class="header-title netural-link"');
+			$this->formatText($artifact, 'image name', '#', 'class="header-title neutral-link"');
+			$this->formatText($artifact, 'image name', '@', 'class="header-title neutral-link"');
 		}
 
 		//format title
@@ -110,10 +110,16 @@ class Parser {
 	//finds all instances of $symbol[] within $artifact->attributes[$attribute], and replaces it with the appropriate html element, and applies custom $style to said element
 	//manages nested brackets
 	private function formatText($artifact, $attribute, $symbol, $style) {
-		//if number of opening brackets and closing brackets is uneven count, display error
+		//if number of opening brackets and closing brackets is uneven count, display error (specific to V-OS)
 		if (sizeof($this->allStringPositions($artifact->attributes[$attribute], '[')) != sizeof($this->allStringPositions($artifact->attributes[$attribute], ']'))) {
+			$artifact->attributes['image'] = null;
+			$artifact->attributes['image name'] = null;
+			$artifact->attributes['github'] = null;
+			$artifact->attributes['content'] = null;
+			$artifact->attributes['white'] = null;
+			$artifact->attributes['path'] = null;
+			$artifact->tags = null;
 			$artifact->attributes['title'] = 'There was an error loading this page. Please contact <a href="LOGO">LOGO</a>.';
-			$artifact->attributes[$attribute] = null;
 			return;
 		}
 

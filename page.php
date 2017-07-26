@@ -48,7 +48,8 @@ if ($artifact->attributes['white'] == 'true') {
 	echo
 	'
 	<style>
-	.header-title {
+	.header-title,
+	.header-title-container {
 		color: #fff;
 	}
 	</style>
@@ -59,7 +60,7 @@ if ($artifact->attributes['white'] == 'true') {
 <body>
 	<div id="header">
 		<div class="header-image" style="background-image: url(<?php echo $artifact->attributes['image'];?>)">
-			<span class="header-title"><?php echo $artifact->attributes['image name'];?></span>
+			<span class="header-title-container"><?php echo $artifact->attributes['image name'];?></span>
 		</div>
 	</div>
 
