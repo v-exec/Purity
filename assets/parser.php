@@ -85,9 +85,9 @@ class Parser {
 	public function secondFormat($artifact) {
 		//format content
 		if ($artifact->attributes['content']) {
-			$this->formatText($artifact, 'content', '$', 'class="reference"');
 			$this->formatText($artifact, 'content', '-', '');
 			$this->formatText($artifact, 'content', '=', '');
+			$this->formatText($artifact, 'content', '$', 'class="reference"');
 		}
 	}
 
@@ -235,12 +235,12 @@ class Parser {
 		$list = null;
 
 		//check if is custom list by checking if there are commas seperating text elements
-		if (strpos($string, ',') == false) {
+		if (strpos($string, '++') == false) {
 			for ($i = 0; $i < sizeof($artifacts); $i++) {
 				if ($artifacts[$i]->hasTag($string) && !$artifacts[$i]->hasTag('nav')) $list = $list.'<li>'.$artifacts[$i]->attributes['title'].'</li>';
 			}
 		} else {
-			$strings = explode(',', trim($string));
+			$strings = explode('++', trim($string));
 			for ($i = 0; $i < sizeof($strings); $i++) {
 				$list = $list.'<li>'.trim($strings[$i]).'</li>';
 			}
@@ -257,12 +257,12 @@ class Parser {
 		$list = null;
 
 		//check if is custom list by checking if there are commas seperating text elements
-		if (strpos($string, ',') == false) {
+		if (strpos($string, '++') == false) {
 			for ($i = 0; $i < sizeof($artifacts); $i++) {
 				if ($artifacts[$i]->hasTag($string) && !$artifacts[$i]->hasTag('nav')) $list = $list.'<li><a href="'.$artifacts[$i]->attributes['name'].'">'.$artifacts[$i]->attributes['name'].'</a></li>';
 			}
 		} else {
-			$strings = explode(',', trim($string));
+			$strings = explode('++', trim($string));
 			for ($i = 0; $i < sizeof($strings); $i++) {
 				$list = $list.'<li>'.trim($strings[$i]).'</li>';
 			}

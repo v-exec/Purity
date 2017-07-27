@@ -55,9 +55,9 @@ And it contains `rules`, which are inline elements used to format text according
 
 -[tag] title list
 
-=[text, text] compact custom list
+=[text ++ text0] compact custom list
 
--[text, text] spacious custom list
+-[text ++ text0] spacious custom list
 
 ?[text] indented quote
 
@@ -87,6 +87,8 @@ Any `attributes` that take 'text' (as seen above) are capable of containing any 
 Special syntax (syntax that does not conform to the `symbol[data]` format) is very minimal.
 
 `+ line break`
+
+`++ list divider`
 
 `> accessor`
 

@@ -37,18 +37,26 @@ Creates a list of artifacts' titles that have this tag.
 -[page]
 
 %[======================================]
-= [text1, text2] condensed custom list
+= [text1 ++ text2] condensed custom list
 +
 +
-Creates a condensed custom list of text items, seperated by commas.
-=[text1, text2]
+Creates a condensed custom list of text items, seperated by '++' (double plus).
+=[
+text1
+++
+text2
+]
 
 %[======================================]
-- [text1, text2] spacious custom list
+- [text1 ++ text2] spacious custom list
 +
 +
-Creates a spacious custom list of text items, seperated by commas.
--[text1, text2]
+Creates a spacious custom list of text items, seperated by '++' (double plus).
+-[
+text1
+++
+text2
+]
 
 %[======================================]
 ? [text] indented quote
