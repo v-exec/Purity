@@ -89,10 +89,18 @@ function createArtifacts() {
 	}
 }
 
+//custom comparison for orderign artifacts by name
+function artifactComparison($a, $b) {
+    return strcmp(strtolower($a->attributes['name']), strtolower($b->attributes['name']));
+}
+
 //goes through all artifacts and uses parser to format their attributes
 function formatArtifacts() {
 	global $artifacts;
 	global $parser;
+
+	//sort artifacts alphabetically
+	usort($artifacts, "artifactComparison");
 
 	if ($parser && $artifacts) {
 		for ($i = 0; $i < sizeof($artifacts); $i++) {
