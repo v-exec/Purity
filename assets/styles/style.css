@@ -15,6 +15,20 @@ body {
 	background-color: #aaa;
 }
 
+p {
+	padding-left: 50px;
+	padding-right: 50px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-size: 18px;
+}
+
+h1 {
+	font-size: 34px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
 a {
 	display: inline;
 	text-decoration: none;
@@ -79,22 +93,8 @@ a.external:after {
 }
 
 /*Text*/
-.text {
-	padding-left: 50px;
-	padding-right: 50px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	font-size: 18px;
-}
-
 .title {
 	font-size: 36px;
-	padding-left: 50px;
-	padding-right: 50px;
-}
-
-.subtitle {
-	font-size: 34px;
 	padding-left: 50px;
 	padding-right: 50px;
 }

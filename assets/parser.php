@@ -77,7 +77,7 @@ class Parser {
 			$this->formatText($artifact, 'content', '?', '');
 			$this->formatText($artifact, 'content', '&', 'class="text-image"');
 			$this->formatText($artifact, 'content', '%', 'class="small-divider"');
-			$this->formatText($artifact, 'content', '!', 'class="subtitle"');
+			$this->formatText($artifact, 'content', '!', '');
 		}
 	}
 
@@ -88,6 +88,10 @@ class Parser {
 			$this->formatText($artifact, 'content', '-', '');
 			$this->formatText($artifact, 'content', '=', '');
 			$this->formatText($artifact, 'content', '$', 'class="reference"');
+
+			//removes empty paragraph tags from body
+			$paragraphPattern = '/<p[^>]*>([\s]|&nbsp;)*<\/p>/';
+			$artifact->attributes['content'] = preg_replace($paragraphPattern, '', $artifact->attributes['content']);
 		}
 	}
 
@@ -227,7 +231,7 @@ class Parser {
 		return '<a href="'.$link.'" class="external">'.$word.'</a>';
 	}
 
-	//takes $string and creates title list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
+	//takes $string and creates title list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createSpaciousList($string) {
 		global $artifacts;
 
@@ -246,10 +250,10 @@ class Parser {
 			}
 		}
 
-		return '</p><ul class="spacious-list">'.$list.'</ul><p class="text">';
+		return '</p><ul class="spacious-list">'.$list.'</ul><p>';
 	}
 
-	//takes $string and creates link list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
+	//takes $string and creates link list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createCondensedList($string) {
 		global $artifacts;
 
@@ -268,20 +272,20 @@ class Parser {
 			}
 		}
 
-		return '</p><ul class="condensed-list">'.$list.'</ul><p class="text">';
+		return '</p><ul class="condensed-list">'.$list.'</ul><p>';
 	}
 
-	//takes $string and makes it into monospaced note (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
+	//takes $string and makes it into monospaced note (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createNote($string) {
 		$string = $this->cleanString($string);
-		$string = '</p><div class="note">'.$string.'</div><p class="text">';
+		$string = '</p><div class="note">'.$string.'</div><p>';
 		return $string;
 	}
 
-	//takes $string and makes it into indented quote (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
+	//takes $string and makes it into indented quote (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createQuote($string) {
 		$string = $this->cleanString($string);
-		$string = '</p><div class="quote">'.$string.'</div><p class="text">';
+		$string = '</p><div class="quote">'.$string.'</div><p>';
 		return $string;
 	}
 
@@ -309,10 +313,10 @@ class Parser {
 		} else return $image;
 	}
 
-	//takes $string and makes it into subtitle with custom $style (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
+	//takes $string and makes it into subtitle with custom $style (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createSubtitle($string, $style) {
 		$string = $this->cleanString($string);
-		$string = '</p><h1 '.$style.'>'.$string.'</h1><p class="text">';
+		$string = '</p><h1 '.$style.'>'.$string.'</h1><p>';
 		return $string;
 	}
 
@@ -352,10 +356,10 @@ class Parser {
 		}
 	}
 
-	//makes divider with custom $style (note: breaks flow of page, redeclaring '<p class="text"' to keep flow)
+	//makes divider with custom $style (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createDivider($string, $style) {
 		$string = $this->cleanString($string);
-		$string = '</p><div '.$style.'></div><p class="text">';
+		$string = '</p><div '.$style.'></div><p>';
 		return $string;
 	}
 
