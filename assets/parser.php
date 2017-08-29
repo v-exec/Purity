@@ -92,6 +92,16 @@ class Parser {
 			//removes empty paragraph tags from body
 			$paragraphPattern = '/<p[^>]*>([\s]|&nbsp;)*<\/p>/';
 			$artifact->attributes['content'] = preg_replace($paragraphPattern, '', $artifact->attributes['content']);
+
+			//removes potential beginning closing paragraph tag if flow breaking element is first in 'content'
+			if (substr($artifact->attributes['content'], 0, 4) === '</p>') $artifact->attributes['content'] = substr($artifact->attributes['content'], 4);
+			//add beginning paragraph open
+			else $artifact->attributes['content'] = '<p>'. $artifact->attributes['content'];
+
+			//remove last opening paragraph tag if no text is present
+			if (substr($artifact->attributes['content'], -3, 3) === '<p>') $artifact->attributes['content'] = substr($artifact->attributes['content'], 0, sizeof($artifact->attributes['content']) - 4);
+			//add paragraph closer at end if paragraph tag not empty
+			else $artifact->attributes['content'] = $artifact->attributes['content'] . '</p>';
 		}
 	}
 
