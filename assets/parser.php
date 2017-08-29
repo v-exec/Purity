@@ -24,7 +24,6 @@ class Parser {
 		['photography', 'photography'],
 		['single', 'singles'],
 		['album', 'albums'],
-		['people', 'people'],
 		['person', 'people'],
 		['location', 'locations'],
 		['system', 'systems'],
@@ -87,7 +86,7 @@ class Parser {
 		if ($artifact->attributes['content']) {
 			$this->formatText($artifact, 'content', '-', '');
 			$this->formatText($artifact, 'content', '=', '');
-			$this->formatText($artifact, 'content', '$', 'class="reference"');
+			$this->formatText($artifact, 'content', '$', '');
 
 			//removes empty paragraph tags from body
 			$paragraphPattern = '/<p[^>]*>([\s]|&nbsp;)*<\/p>/';
@@ -248,7 +247,7 @@ class Parser {
 		$string = $this->cleanString($string);
 		$list = null;
 
-		//check if is custom list by checking if there are commas seperating text elements
+		//check if is custom list by checking if there are (++) seperating text elements
 		if (strpos($string, '++') == false) {
 			for ($i = 0; $i < sizeof($artifacts); $i++) {
 				if ($artifacts[$i]->hasTag($string) && !$artifacts[$i]->hasTag('nav')) $list = $list.'<li>'.$artifacts[$i]->attributes['title'].'</li>';
@@ -299,7 +298,7 @@ class Parser {
 		return $string;
 	}
 
-	//takes $string and makes it into image with custom $style, only returns image path if $returnImg == false
+	//takes $string and makes it into image with custom $style, only returns image path if $returnImg == false (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createImage($string, $style, $returnImg) {
 		if ($returnImg) $string = $this->cleanString($string);
 
@@ -318,7 +317,7 @@ class Parser {
 		$image = str_replace(' ', '%20', $image);
 
 		if ($returnImg) {
-			$img = '<img '.$style.' src="'.$image.'">';
+			$img = '</p><img '.$style.' src="'.$image.'"><p>';
 			return $img;
 		} else return $image;
 	}
@@ -351,14 +350,14 @@ class Parser {
 
 		$string = $this->cleanString($string);
 
-		if ($string == 'self') return $v;
+		if (strtolower($string) == 'self') return $v;
 		else {
 			$strings = array();
 			$strings = explode('>', trim($string));
 
 			for ($i = 0; $i < sizeof($artifacts); $i++) {
 				if ($this->artifactExist($strings[0])) {
-					$art = getArtifact($strings[0]);
+					$art = $this->getArtifact($strings[0]);
 					return '<span '.$style.'>'.$art->attributes[$strings[1]].'</span>';	
 				} 
 			}
