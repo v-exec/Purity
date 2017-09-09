@@ -140,6 +140,7 @@ class Parser {
 		//get first instance of '$symbol['
 		$position = strpos($artifact->attributes[$attribute], $symbol.'[');
 
+		//go through all found symbols under request
 		while ($position !== false) {
 			//find closing ']'
 			$end = strpos($artifact->attributes[$attribute], ']', $position);

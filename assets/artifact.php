@@ -34,7 +34,7 @@ class Artifact {
 				$multiline = true;
 
 				//skip lines starting with '//' and empty lines
-				if ((substr($line, 0, 2)) === '//' || $line === PHP_EOL) continue;
+				if ((substr($line, 0, 2)) === '//' || trim($line) === '') continue;
 
 				//get tags (unique retrieval due to it being an array)
 				if (substr($line, 0, 5) === 'tags:') {
