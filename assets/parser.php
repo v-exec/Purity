@@ -49,7 +49,7 @@ class Parser {
 		if($artifact->attributes['image']) $artifact->attributes['image'] = $this->createImage($artifact->attributes['image'], "", false);
 
 		//make github into link
-		if ($artifact->attributes['github']) $artifact->attributes['github'] = '<a href="'.$artifact->attributes['github'].'" class="header-link neutral-link">github</a>';
+		if ($artifact->attributes['github']) $artifact->attributes['github'] = '<a href="'.$artifact->attributes['github'].'" class="additional-info neutral-link">Code Repository</a>';
 
 		//format image name
 		if ($artifact->attributes['image name']) {
@@ -123,6 +123,7 @@ class Parser {
 	//finds all instances of $symbol[] within $artifact->attributes[$attribute], and replaces it with the appropriate html element, and applies custom $style to said element
 	//manages nested brackets
 	private function formatText($artifact, $attribute, $symbol, $style) {
+		//check open vs closed brackets by using counter to match corresponding brackets
 		//if number of opening brackets and closing brackets is uneven count, display error (specific to V-OS)
 		if (sizeof($this->allStringPositions($artifact->attributes[$attribute], '[')) != sizeof($this->allStringPositions($artifact->attributes[$attribute], ']'))) {
 			$artifact->attributes['image'] = null;
@@ -136,81 +137,78 @@ class Parser {
 			return;
 		}
 
-		//get all instances of '$symbol['
-		$positions = $this->allStringPositions($artifact->attributes[$attribute], $symbol.'[');
+		//get first instance of '$symbol['
+		$position = strpos($artifact->attributes[$attribute], $symbol.'[');
 
-		if (isset($positions[0])) {
+		while ($position !== false) {
+			//find closing ']'
+			$end = strpos($artifact->attributes[$attribute], ']', $position);
 
-			while (sizeof($positions) > 0) {
-				//find closing ']'
-				$end = strpos($artifact->attributes[$attribute], ']', $positions[0]);
-
-				//check if any other '[]' pairs exist within substring, suggesting we haven't found the proper ']'
-				//find next ']' until we've found the proper ']'
-				while (sizeof($this->allStringPositions(substr($artifact->attributes[$attribute], $positions[0], $end - $positions[0] + 1), '[')) != sizeof($this->allStringPositions(substr($artifact->attributes[$attribute], $positions[0], $end - $positions[0] + 1), ']'))) {
-					$end = strpos($artifact->attributes[$attribute], ']', $end + 1);
-				}
-
-				//depending on $symbol, run proper format rule
-				$string = substr($artifact->attributes[$attribute], $positions[0], $end - $positions[0] + 1);
-				switch ($symbol) {
-					case '!':
-						$new = $this->createSubtitle($string, $style);
-						break;
-					
-					case '&':
-						$new = $this->createImage($string, $style, true);
-						break;
-
-					case '#':
-						$new = $this->createLink($string, $style);
-						break;
-
-					case '*':
-						$new = $this->createBold($string);
-						break;
-
-					case '_':
-						$new = $this->createItalic($string);
-						break;
-
-					case '%':
-						$new = $this->createDivider($string, $style);
-						break;
-
-					case '$':
-						$new = $this->createReference($string, $style);
-						break;
-
-					case '@':
-						$new = $this->createCustomLink($string, $style);
-						break;
-
-					case '-':
-						$new = $this->createSpaciousList($string);
-						break;
-
-					case '=':
-						$new = $this->createCondensedList($string);
-						break;
-
-					case '~':
-						$new = $this->createNote($string);
-						break;
-
-					case '?':
-						$new = $this->createQuote($string);
-						break;
-
-					default:
-						return;
-						break;
-				}
-				//replace attribute with formatted attribute
-				$artifact->attributes[$attribute] = str_replace($string, $new, $artifact->attributes[$attribute]);
-				//find next '$symbol[' to parse
-				$positions = $this->allStringPositions($artifact->attributes[$attribute], $symbol.'[');
+			//check if any other '[]' pairs exist within substring, suggesting we haven't found the proper ']'
+			//find next ']' until we've found the proper ']'
+			while (sizeof($this->allStringPositions(substr($artifact->attributes[$attribute], $position, $end - $position + 1), '[')) != sizeof($this->allStringPositions(substr($artifact->attributes[$attribute], $position, $end - $position + 1), ']'))) {
+				$end = strpos($artifact->attributes[$attribute], ']', $end + 1);
 			}
+
+			//depending on $symbol, run proper format rule
+			$string = substr($artifact->attributes[$attribute], $position, $end - $position + 1);
+			switch ($symbol) {
+				case '!':
+					$new = $this->createSubtitle($string, $style);
+					break;
+				
+				case '&':
+					$new = $this->createImage($string, $style, true);
+					break;
+
+				case '#':
+					$new = $this->createLink($string, $style);
+					break;
+
+				case '*':
+					$new = $this->createBold($string);
+					break;
+
+				case '_':
+					$new = $this->createItalic($string);
+					break;
+
+				case '%':
+					$new = $this->createDivider($string, $style);
+					break;
+
+				case '$':
+					$new = $this->createReference($string, $style);
+					break;
+
+				case '@':
+					$new = $this->createCustomLink($string, $style);
+					break;
+
+				case '-':
+					$new = $this->createSpaciousList($string);
+					break;
+
+				case '=':
+					$new = $this->createCondensedList($string);
+					break;
+
+				case '~':
+					$new = $this->createNote($string);
+					break;
+
+				case '?':
+					$new = $this->createQuote($string);
+					break;
+
+				default:
+					return;
+					break;
+			}
+			//replace attribute with formatted attribute
+			$artifact->attributes[$attribute] = str_replace($string, $new, $artifact->attributes[$attribute]);
+			//find next '$symbol[' to parse
+			$position = strpos($artifact->attributes[$attribute], $symbol.'[');
 		}
 	}
 

@@ -27,35 +27,34 @@ class Artifact {
 		$file = fopen($filePath, 'r');
 
 		if ($file) {
-			$currentKey;
-			$newKey;
+			$currentKey = null;
 
 			while (($line = fgets($file)) !== false) {
 
-				$newKey = false;
+				$multiline = true;
 
 				//skip lines starting with '//' and empty lines
-				if ((substr($line, 0, 2)) === '//' || strlen($line) == 2) continue;
+				if ((substr($line, 0, 2)) === '//' || $line === PHP_EOL) continue;
 
 				//get tags (unique retrieval due to it being an array)
 				if (substr($line, 0, 5) === 'tags:') {
 					$this->tags = explode(',', trim(substr($line, 5, strlen($line))));
-					$newKey = true;
-				}
-
-				//go through each attribute and see if line begins with its declaration
-				foreach ($this->attributes as $key => $value) {
-					if (substr($line, 0, strlen($key) + 1) === $key.':') {
-						//once key has been found, update $currentKey, and get the line's value
-						$currentKey = $key;
-						$value = trim(substr($line, strlen($currentKey) + 1, strlen($line)));
-						$this->attributes[$currentKey] = $value;
-						$newKey = true;
+					$multiline = false;
+				} else {
+					//go through each attribute and see if line begins with its declaration
+					foreach ($this->attributes as $key => $value) {
+						if (substr($line, 0, strlen($key) + 1) === $key.':') {
+							//once key has been found, update $currentKey, and get the line's value
+							$currentKey = $key;
+							$value = trim(substr($line, strlen($currentKey) + 1, strlen($line)));
+							$this->attributes[$currentKey] = $value;
+							$multiline = false;
+						}
 					}
 				}
 
 				//if key wasn't found, continue adding to the previously acquired attribute
-				if (!$newKey) {
+				if ($multiline && $currentKey != null) {
 					if (strlen($line) == 3 && substr($line, 0, 1) === '+') $this->attributes[$currentKey] = $this->attributes[$currentKey].'<br>';
 					else $this->attributes[$currentKey] = $this->attributes[$currentKey].$line;
 				}
@@ -89,7 +88,7 @@ function createArtifacts() {
 	}
 }
 
-//custom comparison for orderign artifacts by name
+//custom comparison for ordering artifacts by name
 function artifactComparison($a, $b) {
     return strcmp(strtolower($a->attributes['name']), strtolower($b->attributes['name']));
 }
