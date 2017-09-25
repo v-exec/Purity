@@ -107,7 +107,7 @@ class Parser {
 	//creates a path for predetermined hierarchy/navigation, based on tags
 	private function createPath($artifact) {
 		//set up artifact path
-		$artifact->attributes['path'] = '<a href="site" class="path neutral-link">site</a><span class="path">/</span>';
+		$artifact->attributes['path'] = '<a href="home" class="path neutral-link">home</a><span class="path">/</span>';
 
 		//check all artifact tags for parse tags
 		for ($i = 0; $i < sizeof($this->tags); $i++) {
@@ -140,7 +140,6 @@ class Parser {
 		//get first instance of '$symbol['
 		$position = strpos($artifact->attributes[$attribute], $symbol.'[');
 
-		//go through all found symbols under request
 		while ($position !== false) {
 			//find closing ']'
 			$end = strpos($artifact->attributes[$attribute], ']', $position);

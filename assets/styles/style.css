@@ -115,6 +115,7 @@ a.external:after {
 	border-left: solid 1px #eee;
 	border-right: solid 1px #eee;
 	border-top: solid 1px #eee;
+	border-bottom: solid 1px #eee;
 	background-color: #fff;
 }
 
@@ -126,6 +127,9 @@ a.external:after {
 }
 
 .header-title {
+	position: absolute;
+	left: 20px;
+	bottom: 20px;
 	font-size: 13px;
 	font-family: 'Roboto Mono';
 }
@@ -156,14 +160,19 @@ a.external:after {
 #body-content {
 	max-width: 900px;
 	margin: auto;
+	padding-top: 40px;
 	background-color: #fff;
 	border-left: solid 1px #eee;
 	border-right: solid 1px #eee;
 }
 
 #title {
+	max-width: 900px;
+	margin: auto;
 	padding: 40px 40px 40px 40px;
-	border-bottom: solid 1px #eee;
+	background-color: #fff;
+	border-left: solid 1px #eee;
+	border-right: solid 1px #eee;
 	overflow: auto;
 }
 
@@ -278,13 +287,10 @@ a.external:after {
 /*-----------FOOTER-----------*/
 #footer {
 	width: 100%;
-}
-
-#footer-content {
 	max-width: 900px;
     position: relative;
     overflow: auto;
-    padding: 30px 40px 30px 40px;
+    padding-top: 40px;
 	margin: auto;
 	border-left: solid 1px #eee;
 	border-right: solid 1px #eee;

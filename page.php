@@ -69,7 +69,9 @@ if ($artifact->attributes['white'] == 'true') {
 	</div>
 
 	<div id="body">
-		<p class="text"><?php echo $artifact->attributes['content'];?></p>
+		<div id="body-content">
+			<?php echo $artifact->attributes['content'];?>
+		</div>
 	</div>
 
 	<div id="footer">
