@@ -13,7 +13,7 @@ class Parser {
 	private $tags = array(
 		['project', 'projects'],
 		['verse', 'verse'],
-		['personal', 'personal'],
+		['research', 'research'],
 		['audio', 'audio'],
 		['visual', 'visual'],
 		['code', 'code'],
@@ -64,6 +64,7 @@ class Parser {
 			$this->formatText($artifact, 'title', '*', '');
 			$this->formatText($artifact, 'title', '$', '');
 			$this->formatText($artifact, 'title', '@', '');
+			$this->formatText($artifact, 'title', '>', '');
 		}
 
 		//format content
@@ -77,6 +78,7 @@ class Parser {
 			$this->formatText($artifact, 'content', '&', 'class="text-image"');
 			$this->formatText($artifact, 'content', '%', 'class="small-divider"');
 			$this->formatText($artifact, 'content', '!', '');
+			$this->formatText($artifact, 'content', '>', '');
 		}
 	}
 
@@ -201,6 +203,10 @@ class Parser {
 					$new = $this->createQuote($string);
 					break;
 
+				case '>':
+					$new = $this->executePHP($string);
+					break;
+
 				default:
 					return;
 					break;
@@ -293,6 +299,15 @@ class Parser {
 	private function createQuote($string) {
 		$string = $this->cleanString($string);
 		$string = '</p><div class="quote">'.$string.'</div><p>';
+		return $string;
+	}
+
+	//executes PHP code (use at your own risk)
+	private function executePHP($string) {
+		$string = $this->cleanString($string);
+		$string = '$string = ' . $string;
+		eval($string);
+
 		return $string;
 	}
 

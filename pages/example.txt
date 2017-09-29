@@ -78,6 +78,13 @@ The same formatting rules exist here as in the regular 'content' _[attribute].
 ]
 
 %[======================================]
+> [code] executable PHP code
++
++
+Executes PHP code.
+>["Result of '2 + 2', calculated with php: " . (2 + 2);]
+
+%[======================================]
 ! [text] subtitle
 +
 +

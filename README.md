@@ -63,6 +63,8 @@ And it contains `rules`, which are inline elements used to format text according
 
 ~[text] monospaced note
 
+>[code] executable PHP code
+
 ![text] subtitle
 
 $[artifact>attribute] reference to artifact's attribute
@@ -99,49 +101,3 @@ The text written for _Purity_  is _not_ parsed using whitespace, therefore, deli
 #### Example
 
 For a real-world example of an entire instance of _Purity_, take a look at the files found in this repo: they showcase a functional and tested example of a working instance. The example instance was made exclusively using HTML (page.php), CSS (/assets/styles/style.css), and text files (/pages), without touching any part of _Purity_ itself.
-
-Here is an example of an artifact that uses nearly all `rules`. At the moment, only one artifact can be declared per file. Meaning that multiple artifacts must each be declared in a separate file.
-
-```
-name: Artifact
-
-image: images>artifact2
-
-white: false
-
-github: https://github.com/user/Project
-
-tags: project, programming
-
-title: An #[artifact] is an object created through #[Purity].
-
-content: Here is a list of all my #[projects]:
-+
-
-//this creates a subtitle "Projects Title!", where "projects" is also a link
-![#[Projects] Title!]
-+
-
-//this creates a link list of all artifacts with the tag 'project'
-=[projects]
-
-//and this creates a custom list of text elements, seperated by commas
-=[text1, text2, text3]
-+
-
-//this fetches the 'title' attribute from the artifact 'projects'
-$[projects>title]
-+
-
-Here is an @[external link>http://website.com].
-
-+
-
-_[Italic] and *[bold] text.
-
-+
-
-%[text inside a divider is removed during parsing]
-+
-&[image directory>other image directory>my image]
-```
