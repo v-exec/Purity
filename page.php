@@ -43,20 +43,6 @@ else $artifact = getArtifact('404');
 	<link rel="stylesheet" type="text/css" href="assets/styles/style.css?ver=<?php echo filemtime('assets/styles/style.css');?>">
 </head>
 
-<?php 
-if ($artifact->attributes['white'] == 'true') {
-	echo
-	'
-	<style>
-	.header-title,
-	.header-title-container {
-		color: #fff;
-	}
-	</style>
-	';
-}
-?>
-
 <body>
 	<div id="header">
 		<div class="header-image" style="background-image: url(<?php echo $artifact->attributes['image'];?>)">
@@ -85,7 +71,6 @@ if ($artifact->attributes['white'] == 'true') {
 				}
 			}
 		?>
-		<?php if ($artifact->attributes['github']) echo '<br><br><span class="github">'.$artifact->attributes['github'].'</span>';?>
 		</p>
 	</div>
 </body>

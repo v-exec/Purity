@@ -4,8 +4,6 @@ image: example>404
 
 image name: #[404]
 
-white: true
-
 tags: page, 404
 
 title: The #[404] page is shown whenever an _[artifact] can't be found.

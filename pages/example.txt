@@ -4,8 +4,6 @@ image: example>di
 
 image name: #[Example]
 
-white: true
-
 tags: page, content
 
 title: The #[example] page covers all the _[rules] of _[Purity].

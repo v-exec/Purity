@@ -1,6 +1,6 @@
 # Purity
 
-_Purity_ is a specialized wiki / authoring engine written in PHP, and used as the back-end for [V-OS](http://v-os.ca).
+_Purity_ is a specialized wiki / authoring engine written in PHP. A custom variant of it is used as the back-end for [V-OS](http://v-os.ca).
 
 Generic text files written under appropriate format are parsed through _Purity_'s multi-layered parser into PHP objects called `artifacts`. Each `artifact` corresponds to a page, and once populated, is parsed into its html counterpart, with the capability to apply custom styling to the parsed results.
 
@@ -8,7 +8,7 @@ Generic text files written under appropriate format are parsed through _Purity_'
 
 At the moment, _Purity_ features:
 
-- A series of attributes per artifact (name, image, image name, title, content, tags, custom boolean, custom link), easily customizeable and expandable for a different layout through minimal code changes.
+- A series of attributes per artifact (name, image, image name, title, content, tags), easily customizeable and expandable for a different layout through minimal code changes.
 
 - A custom text format for creating artifacts, made for intuitive human-level writing (more information on syntax below).
 
@@ -31,10 +31,6 @@ image: directory>imagename
 
 image name: text
 
-white: true/false
-
-github: link
-
 tags: tag, tag, tag...
 
 title: text
@@ -43,8 +39,6 @@ content: text
 ```
 
 All `attributes`, aside from `name` are optional, and can be omitted without issue. They can also be declared in any order.
-
-The attributes `github` and `white` are specific to [V-OS](http://v-os.ca). They can be used as a custom link and a custom boolean.
 
 #### Rules
 

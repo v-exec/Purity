@@ -5,31 +5,8 @@ It features a series of generalized formatting functions.
 
 In the event of an expansion or customization of this system,
 new parsing criteria and features can seamlessly be introduced as a basic addition to the existing code.
-
-The 'github' and 'path' attributes are the only that feature a specialized formatting, made specifically for V-OS.
 */
 class Parser {
-	//all acceptable tags, and what they should read out when creating path
-	private $tags = array(
-		['project', 'projects'],
-		['verse', 'verse'],
-		['research', 'research'],
-		['audio', 'audio'],
-		['visual', 'visual'],
-		['code', 'code'],
-		['tool', 'tools'],
-		['interactive', 'interactive'],
-		['display', 'display'],
-		['graphic', 'graphic'],
-		['photography', 'photography'],
-		['single', 'singles'],
-		['album', 'albums'],
-		['person', 'people'],
-		['location', 'locations'],
-		['system', 'systems'],
-		['secret', 'secret']
-	);
-
 	//image directory
 	private $imageDirectory = 'images';
 
@@ -42,14 +19,8 @@ class Parser {
 			}
 		}
 
-		//create path
-		if ($artifact->tags) $this->createPath($artifact);
-
 		//create image
 		if($artifact->attributes['image']) $artifact->attributes['image'] = $this->createImage($artifact->attributes['image'], "", false);
-
-		//make github into link
-		if ($artifact->attributes['github']) $artifact->attributes['github'] = '<a href="'.$artifact->attributes['github'].'" class="additional-info neutral-link">Code Repository</a>';
 
 		//format image name
 		if ($artifact->attributes['image name']) {
@@ -106,27 +77,11 @@ class Parser {
 		}
 	}
 
-	//creates a path for predetermined hierarchy/navigation, based on tags
-	private function createPath($artifact) {
-		//set up artifact path
-		$artifact->attributes['path'] = '<a href="home" class="path neutral-link">home</a><span class="path">/</span>';
-
-		//check all artifact tags for parse tags
-		for ($i = 0; $i < sizeof($this->tags); $i++) {
-			if ($artifact->hasTag($this->tags[$i][0])) $artifact->attributes['path'] = $artifact->attributes['path'].'<a href="'.$this->tags[$i][1].'" class="path neutral-link">'.$this->tags[$i][1].'</a><span class="path">/</span>';
-
-			//hub tag clears path
-			if ($artifact->hasTag('hub')) $artifact->attributes['path'] = null;
-		}
-		//assign path
-		$artifact->attributes['path'] = $artifact->attributes['path'].'<a href="'.strtolower($artifact->attributes['name']).'" class="path neutral-link">'.strtolower($artifact->attributes['name']).'</a>';
-	}
-
 	//finds all instances of $symbol[] within $artifact->attributes[$attribute], and replaces it with the appropriate html element, and applies custom $style to said element
 	//manages nested brackets
 	private function formatText($artifact, $attribute, $symbol, $style) {
 		//check open vs closed brackets by using counter to match corresponding brackets
-		//if number of opening brackets and closing brackets is uneven count, display error (specific to V-OS)
+		//if number of opening brackets and closing brackets is uneven count, display error
 		if (sizeof($this->allStringPositions($artifact->attributes[$attribute], '[')) != sizeof($this->allStringPositions($artifact->attributes[$attribute], ']'))) {
 			$artifact->attributes['image'] = null;
 			$artifact->attributes['image name'] = null;
@@ -135,7 +90,7 @@ class Parser {
 			$artifact->attributes['white'] = null;
 			$artifact->attributes['path'] = null;
 			$artifact->tags = null;
-			$artifact->attributes['title'] = 'There was an error loading this page. Please contact <a href="LOGO">LOGO</a>.';
+			$artifact->attributes['title'] = 'There was an error loading this page.';
 			return;
 		}
 
