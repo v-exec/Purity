@@ -12,7 +12,6 @@ class Artifact {
 		'name'=>'',
 		'image'=>'',
 		'image name'=>'',
-		'github'=>'',
 		'title'=>'',
 		'content'=>'',
 	);

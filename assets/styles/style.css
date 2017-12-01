@@ -77,30 +77,11 @@ a.external:after {
 }
 
 /*-----------MEDIA-----------*/
-#userCanvas {
-	position: fixed;
-	left: 10px;
-	top: 10px;
-	width: 100px;
-	height: 100px;
-	z-index: 1;
-}
-
 .media {
 	width: 100%;
 	height: 500px;
 	border-radius: 2px;
 	border: solid 1px #eee;
-}
-
-.bandcamp {
-	display: block;
-	width: 80%;
-	height: 500px;
-	margin-left: auto;
-	margin-right: auto;
-	border: none;
-	border-radius: 2px;
 }
 
 /*-----------HEADER-----------*/
@@ -133,20 +114,6 @@ a.external:after {
 	font-family: 'Roboto Mono';
 }
 
-.long-divider {
-	position: relative;
-	width: 100%;
-	height: 1px;
-	background-color: #000;
-	margin: auto;
-	margin-top: 8px;
-}
-
-.path {
-	color: #777;
-	font-size: 13px;
-}
-
 /*-----------BODY & TEXT-----------*/
 #body {
 	position: relative;
@@ -177,34 +144,6 @@ a.external:after {
 
 #title h1 {
 	padding: 0;
-}
-
-#additional {
-	padding: 20px 40px 20px 40px;
-	border-bottom: solid 1px #eee;
-	overflow: auto;
-}
-
-.additional-left,
-.additional-right {
-	width: 50%;
-	float: left;
-	font-size: 13px;
-}
-
-.additional-right {
-	float: right;
-	text-align: right;
-}
-
-.additional-info {
-	margin-right: 10px;
-	color: #777;
-}
-
-.additional-right .additional-info {
-	margin-right: 0;
-	margin-left: 10px;
 }
 
 #content {
@@ -296,31 +235,6 @@ a.external:after {
 	border-bottom: solid 1px #eee;
 	margin-bottom: 80px;
 	background-color: #fff;
-}
-
-.footer-left {
-	float: left;
-}
-
-.footer-right {
-	float: right;
-	text-align: right;
-}
-
-.footer-text {
-	display: inline-block;
-	vertical-align: top;
-	color: #000;
-	font-size: 13px;
-	margin-right: 40px;
-}
-
-.footer-text * {
-	color: #777;
-}
-
-.footer-right .footer-text {
-	margin: 0 0 0 40px;
 }
 
 /*-----------MEDIA-----------*/

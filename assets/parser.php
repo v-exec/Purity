@@ -24,26 +24,26 @@ class Parser {
 
 		//format image name
 		if ($artifact->attributes['image name']) {
-			$this->formatText($artifact, 'image name', '#', 'class="header-title neutral-link"');
-			$this->formatText($artifact, 'image name', '@', 'class="header-title neutral-link"');
+			$this->formatText($artifact, 'image name', '#', 'class="neutral-link"');
+			$this->formatText($artifact, 'image name', '@', 'class="neutral-link"');
 		}
 
 		//format title
 		if ($artifact->attributes['title']) {
+			$this->formatText($artifact, 'title', '@', '');
 			$this->formatText($artifact, 'title', '#', '');
 			$this->formatText($artifact, 'title', '_', '');
 			$this->formatText($artifact, 'title', '*', '');
 			$this->formatText($artifact, 'title', '$', '');
-			$this->formatText($artifact, 'title', '@', '');
 			$this->formatText($artifact, 'title', '>', '');
 		}
 
 		//format content
 		if ($artifact->attributes['content']) {
+			$this->formatText($artifact, 'content', '@', '');
 			$this->formatText($artifact, 'content', '#', '');
 			$this->formatText($artifact, 'content', '_', '');
 			$this->formatText($artifact, 'content', '*', '');
-			$this->formatText($artifact, 'content', '@', '');
 			$this->formatText($artifact, 'content', '~', '');
 			$this->formatText($artifact, 'content', '?', '');
 			$this->formatText($artifact, 'content', '&', 'class="text-image"');
@@ -57,23 +57,17 @@ class Parser {
 	public function secondFormat($artifact) {
 		//format content
 		if ($artifact->attributes['content']) {
-			$this->formatText($artifact, 'content', '-', '');
-			$this->formatText($artifact, 'content', '=', '');
-			$this->formatText($artifact, 'content', '$', '');
 
-			//removes empty paragraph tags from body
-			$paragraphPattern = '/<p[^>]*>([\s]|&nbsp;)*<\/p>/';
-			$artifact->attributes['content'] = preg_replace($paragraphPattern, '', $artifact->attributes['content']);
-
-			//removes potential beginning closing paragraph tag if flow breaking element is first in 'content'
-			if (substr($artifact->attributes['content'], 0, 4) === '</p>') $artifact->attributes['content'] = substr($artifact->attributes['content'], 4);
-			//add beginning paragraph open
-			else $artifact->attributes['content'] = '<p>'. $artifact->attributes['content'];
-
-			//remove last opening paragraph tag if no text is present
-			if (substr($artifact->attributes['content'], -3, 3) === '<p>') $artifact->attributes['content'] = substr($artifact->attributes['content'], 0, sizeof($artifact->attributes['content']) - 4);
-			//add paragraph closer at end if paragraph tag not empty
-			else $artifact->attributes['content'] = $artifact->attributes['content'] . '</p>';
+			//reformat 10 times to allow for 10 levels of nested artifact content retrieval
+			//could be theoretically infinite, but that doesn't seem practical, and will easily end up with infinite loops
+			for ($i = 0; $i < 10; $i++) {
+				$this->formatText($artifact, 'content', '-', '');
+				$this->formatText($artifact, 'content', '=', '');
+				$this->formatText($artifact, 'content', '$', '');
+			}
+			
+			//clean paragraphs
+			$artifact->attributes['content'] = $this->cleanParagraphs($artifact->attributes['content']);
 		}
 	}
 
@@ -85,10 +79,7 @@ class Parser {
 		if (sizeof($this->allStringPositions($artifact->attributes[$attribute], '[')) != sizeof($this->allStringPositions($artifact->attributes[$attribute], ']'))) {
 			$artifact->attributes['image'] = null;
 			$artifact->attributes['image name'] = null;
-			$artifact->attributes['github'] = null;
 			$artifact->attributes['content'] = null;
-			$artifact->attributes['white'] = null;
-			$artifact->attributes['path'] = null;
 			$artifact->tags = null;
 			$artifact->attributes['title'] = 'There was an error loading this page.';
 			return;
@@ -326,7 +317,7 @@ class Parser {
 			for ($i = 0; $i < sizeof($artifacts); $i++) {
 				if ($this->artifactExist($strings[0])) {
 					$art = $this->getArtifact($strings[0]);
-					return '<span '.$style.'>'.$art->attributes[$strings[1]].'</span>';	
+					return $art->attributes[$strings[1]];	
 				} 
 			}
 			return '<span>'.$strings[0].'.'.$strings[1].'</span>';
@@ -337,6 +328,26 @@ class Parser {
 	private function createDivider($string, $style) {
 		$string = $this->cleanString($string);
 		$string = '</p><div '.$style.'></div><p>';
+		return $string;
+	}
+
+	//gets rid of empty <p> tags
+	private function cleanParagraphs($string) {
+		$paragraphPattern = '/<p[^>]*>([\s]|&nbsp;)*<\/p>/';
+		$string = preg_replace($paragraphPattern, '', $string);
+
+		$string = trim($string);
+
+		//removes potential beginning closing paragraph tag if flow breaking element is first in string
+		if (substr($string, 0, 4) === '</p>') $string = substr($string, 4);
+		//add beginning paragraph open
+		else $string = '<p>'. $string;
+
+		//remove last opening paragraph tag if no text is present
+		if (substr($string, -3, 3) === '<p>') $string = substr($string, 0, sizeof($string) - 4);
+		//add paragraph closer at end if paragraph tag not empty
+		else $string = $string . '</p>';
+
 		return $string;
 	}
 

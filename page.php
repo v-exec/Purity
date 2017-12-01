@@ -61,7 +61,6 @@ else $artifact = getArtifact('404');
 	</div>
 
 	<div id="footer">
-		<p class="text">
 		Tags:
 		<?php
 			if ($artifact->tags) {
@@ -71,7 +70,6 @@ else $artifact = getArtifact('404');
 				}
 			}
 		?>
-		</p>
 	</div>
 </body>
 </html>
