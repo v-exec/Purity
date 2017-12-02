@@ -272,6 +272,7 @@ class Parser {
 
 		$image = $image.'.png';
 		if (!file_exists($image)) $image = substr($image, 0, strlen($image) - 4).'.jpg';
+		if (!file_exists($image)) $image = substr($image, 0, strlen($image) - 4).'.gif';
 
 		$image = str_replace(' ', '%20', $image);
 
