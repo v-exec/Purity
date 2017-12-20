@@ -228,7 +228,7 @@ a.external:after {
 	max-width: 900px;
     position: relative;
     overflow: auto;
-    padding-top: 40px;
+    padding: 40px;
 	margin: auto;
 	border-left: solid 1px #eee;
 	border-right: solid 1px #eee;
