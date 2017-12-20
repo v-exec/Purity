@@ -95,3 +95,19 @@ The text written for _Purity_  is _not_ parsed using whitespace, therefore, deli
 #### Example
 
 For a real-world example of an entire instance of _Purity_, take a look at the files found in this repo: they showcase a functional and tested example of a working instance. The example instance was made exclusively using HTML (page.php), CSS (/assets/styles/style.css), and text files (/pages), without touching any part of _Purity_ itself.
+
+#### Notes
+
+In the case of running _Purity_ in a subfolder, rather than the root directory of a site, the main/root `.htaccess` must be modified so that:
+
+```
+RewriteRule ^(.*)$ $1.php
+RewriteRule ^(.+)$ /page.php?v=$1 [NC,L]
+```
+
+include the path to the directory _Purity_ is in, like so:
+
+```
+RewriteRule ^(.*)$ /subfolder/$1.php
+RewriteRule ^(.+)$ /subfolder/page.php?v=$1 [NC,L]
+```

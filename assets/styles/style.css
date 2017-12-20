@@ -100,13 +100,14 @@ a.external:after {
 }
 
 .header-image {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	background-size: cover;
 	background-position: center;
 }
 
-.header-title {
+.header-title-container {
 	position: absolute;
 	left: 20px;
 	bottom: 20px;
