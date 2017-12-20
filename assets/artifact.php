@@ -52,7 +52,7 @@ class Artifact {
 
 				//if key wasn't found, continue adding to the previously acquired attribute
 				if ($multiline && $currentKey != null) {
-					if (strlen($line) == 3 && substr($line, 0, 1) === '+') $this->attributes[$currentKey] = $this->attributes[$currentKey].'<br>';
+					if (substr($line, 0, 1) === '+' && substr($line, 1, 1) != ' ') $this->attributes[$currentKey] = $this->attributes[$currentKey].'<br>';
 					else $this->attributes[$currentKey] = $this->attributes[$currentKey].$line;
 				}
 			}
