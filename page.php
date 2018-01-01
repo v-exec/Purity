@@ -71,5 +71,6 @@ else $artifact = getArtifact('404');
 			}
 		?>
 	</div>
+<script src="assets/requestscript.js"></script>
 </body>
 </html>

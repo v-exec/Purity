@@ -16,6 +16,8 @@ At the moment, _Purity_ features:
 
 - An object system separate from the layout of each page, allowing _Purity_ to be used as a content management system for various layouts.
 
+- A simple API allowing basic information to be dynamically requested through local javascript.
+
 ## Syntax
 
 The syntax for _Purity_'s writing system is quite simple.
@@ -42,7 +44,7 @@ All `attributes`, aside from `name` are optional, and can be omitted without iss
 
 #### Rules
 
-And it contains `rules`, which are inline elements used to format text according to predetermined functions. Most `rules`' formatting can have a custom style, which is applied in the parser.
+It also contains `rules`, which are inline elements used to format text according to predetermined functions. Most `rules`' formatting can have a custom style, which is applied in the parser.
 
 ```
 =[tag] link list
@@ -96,7 +98,19 @@ The text written for _Purity_  is _not_ parsed using whitespace, therefore, deli
 
 For a real-world example of an entire instance of _Purity_, take a look at the files found in this repo: they showcase a functional and tested example of a working instance. The example instance was made exclusively using HTML (page.php), CSS (/assets/styles/style.css), and text files (/pages), without touching any part of _Purity_ itself.
 
-#### Notes
+#### Using the API
+
+_Purity_ has a simple API for requesting basic `artifact` information using client-side Javascript. Inside `/assets`, `requestscript.js` contains a function that formats a request that corresponds to `api.php`'s request standards. Currently, the following can be done through this method:
+
+- Verification of whether or not an `artifact` exists.
+
+- Request to format text into a link if it corresponds to an existing `artifact`.
+
+- Request for a select `artifact`'s `attribute`.
+
+To ensure functionaliy, be sure your server allows AJAX requests.
+
+#### Running _Purity_ In A Subfolder
 
 In the case of running _Purity_ in a subfolder, rather than the root directory of a site, the main/root `.htaccess` must be modified so that:
 

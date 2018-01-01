@@ -68,8 +68,7 @@ Creates indented quotation.
 +
 +
 Creates monospaced note.
-~[
-Monospaced note here.
+~[Monospaced note here.
 +
 +
 The same formatting rules exist here as in the regular 'content' _[attribute].
@@ -81,6 +80,18 @@ The same formatting rules exist here as in the regular 'content' _[attribute].
 +
 Executes PHP code.
 >["Result of '2 + 2', calculated with php: " . (2 + 2);]
+
+%[======================================]
+issueRequest(_[string] request type, _[string] artifact name, _[string (optional)] requested attribute) Javascript request issue to _[Purity]. (Request reponses for following examples found in console.log).
++
++
+Does "index" artifact exist? Query says: <a href="javascript:void(0)" onclick="issueRequest('verifyExistence', 'index')">click to issue request</a>.
++
+Does "abcd" artifact exist? Query says: <a href="javascript:void(0)" onclick="issueRequest('verifyExistence', 'abcd')">click to issue request</a>.
++
+Create link to "index" artifact: <a href="javascript:void(0)" onclick="issueRequest('createArtifactLink', 'index')">click to issue request</a>.
++
+Fetch "index"'s title: <a href="javascript:void(0)" onclick="issueRequest('getArtifactAttribute', 'index', 'title')">click to issue request</a>.
 
 %[======================================]
 ! [text] subtitle
