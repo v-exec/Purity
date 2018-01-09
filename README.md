@@ -18,6 +18,8 @@ At the moment, _Purity_ features:
 
 - A simple API allowing basic information to be dynamically requested through local javascript.
 
+- The option to create a static instance of _Purity_ - allowing for light hosting.
+
 ## Syntax
 
 The syntax for _Purity_'s writing system is quite simple.
@@ -94,9 +96,11 @@ Special syntax (syntax that does not conform to the `symbol[data]` format) is ve
 
 The text written for _Purity_  is _not_ parsed using whitespace, therefore, deliberate line breaks for content and titles must be declared through `+`.
 
+## Additional Information
+
 #### Example
 
-For a real-world example of an entire instance of _Purity_, take a look at the files found in this repo: they showcase a functional and tested example of a working instance. The example instance was made exclusively using HTML (page.php), CSS (/assets/styles/style.css), and text files (/pages), without touching any part of _Purity_ itself.
+For a real-world example of an entire instance of _Purity_, take a look at the files found in this repo: they showcase a functional and tested example of a working instance. The example instance was made exclusively using HTML (`assets/template.php`), CSS (`/assets/styles/style.css`), and text files (`/pages`), without touching any part of _Purity_ itself.
 
 #### Using the API
 
@@ -125,3 +129,11 @@ include the path to the directory _Purity_ is in, like so:
 RewriteRule ^(.*)$ /subfolder/$1.php
 RewriteRule ^(.+)$ /subfolder/page.php?v=$1 [NC,L]
 ```
+
+#### Exporting a Static Site
+
+To export a static instance of _Purity_, any WAMP/LAMP environment will do.
+
+Simply change the `static` variable in `page.php` to `true`, and all pages' `.html` files will be exported to a `/static` folder. Be sure to make this option `false` if you are hosting a dynamic instance _Purity_ on a site. The path of their links to scripts and images will be from the root directory.
+
+Be sure to double-check your filenames: operating systems' filename encoding may differ for non-standard characters.

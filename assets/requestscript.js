@@ -1,3 +1,7 @@
+/*
+Requestscript holds javascript functions for sending request to API.
+*/
+
 //path to api.php
 var apiPath = 'https://localhost:8080/assets/api.php';
 

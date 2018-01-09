@@ -1,4 +1,7 @@
 <?php
+/*
+API deals with replying to AJAX requests.
+*/
 
 //include all necessary files for artifact creation and create artifacts
 include 'parser.php';
