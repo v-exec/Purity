@@ -334,6 +334,13 @@ class Parser {
 
 	//gets rid of empty <p> tags
 	private function cleanParagraphs($string) {
+
+		//unclosed tags (ignore warnings when using DOMDocument for parsing)
+		$doc = new DOMDocument();
+		@$doc->loadHTML($string);
+		$string = $doc->saveHTML();
+
+		//empty <p> tags
 		$paragraphPattern = '/<p[^>]*>([\s]|&nbsp;)*<\/p>/';
 		$string = preg_replace($paragraphPattern, '', $string);
 
