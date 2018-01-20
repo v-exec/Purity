@@ -332,20 +332,8 @@ class Parser {
 		return $string;
 	}
 
-	//gets rid of empty <p> tags
+	//cleans page tags
 	private function cleanParagraphs($string) {
-
-		//unclosed tags (ignore warnings when using DOMDocument for parsing)
-		$doc = new DOMDocument();
-		@$doc->loadHTML($string);
-		$string = $doc->saveHTML();
-
-		//empty <p> tags
-		$paragraphPattern = '/<p[^>]*>([\s]|&nbsp;)*<\/p>/';
-		$string = preg_replace($paragraphPattern, '', $string);
-
-		$string = trim($string);
-
 		//removes potential beginning closing paragraph tag if flow breaking element is first in string
 		if (substr($string, 0, 4) === '</p>') $string = substr($string, 4);
 		//add beginning paragraph open
@@ -355,6 +343,17 @@ class Parser {
 		if (substr($string, -3, 3) === '<p>') $string = substr($string, 0, sizeof($string) - 4);
 		//add paragraph closer at end if paragraph tag not empty
 		else $string = $string . '</p>';
+
+		//unclosed tags (ignore warnings when using DOMDocument for parsing)
+		$doc = new DOMDocument();
+		@$doc->loadHTML($string);
+		$string = $doc->saveHTML();
+
+		//empty <p> tags
+		$paragraphPattern = '/<p[^>]*>([\s]|&nbsp;)*<\/p>/';
+
+		$string = preg_replace($paragraphPattern, '', $string);
+		$string = trim($string);
 
 		return $string;
 	}
