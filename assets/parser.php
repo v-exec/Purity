@@ -24,8 +24,8 @@ class Parser {
 
 		//format image name
 		if ($artifact->attributes['image name']) {
-			$this->formatText($artifact, 'image name', '#', 'class="neutral-link"');
-			$this->formatText($artifact, 'image name', '@', 'class="neutral-link"');
+			$this->formatText($artifact, 'image name', '#', 'class="header-title neutral-link"');
+			$this->formatText($artifact, 'image name', '@', 'class="header-title neutral-link"');
 		}
 
 		//format title
@@ -80,6 +80,7 @@ class Parser {
 			$artifact->attributes['image'] = null;
 			$artifact->attributes['image name'] = null;
 			$artifact->attributes['content'] = null;
+			$artifact->path = null;
 			$artifact->tags = null;
 			$artifact->attributes['title'] = 'There was an error loading this page.';
 			return;

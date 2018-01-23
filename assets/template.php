@@ -9,7 +9,7 @@
 
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700|Roboto+Mono">
-	<link rel="stylesheet" type="text/css" href="assets/styles/style.css?ver=<?php echo filemtime('assets/styles/style.css');?>">
+	<link rel="stylesheet" type="text/css" href="assets/styles/style.css?">
 </head>
 
 <body>
@@ -36,6 +36,17 @@
 				foreach($artifact->tags as $tag) {
 					if ($tag !== end($artifact->tags)) echo $tag.', ';
 					else echo $tag;
+				}
+			}
+		?>
+		<br>
+		<br>
+		Path:
+		<?php
+			if ($artifact->path) {
+				for ($i = 0; $i < sizeof($artifact->path); $i++) {
+					echo '<a href="' . $artifact->path[$i] . '" class="path neutral-link">' . $artifact->path[$i] . '</a>';
+					if ($i != sizeof($artifact->path) - 1) echo '<span class="path">/</span>';
 				}
 			}
 		?>

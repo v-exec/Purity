@@ -19,8 +19,13 @@ class Artifact {
 	//tags carries a selection of tags, which can be used for grouping and organizational purposes. the array is retrieved from first to last - most important to least important
 	public $tags = array();
 
+	//path carries the directory path of the file
+	public $path = array();
+
 	//constructor parses file to retrieve its contents
-	public function __construct($filePath) {
+	public function __construct($filePath, $brokenPath) {
+
+		//get file contents
 		$file = fopen($filePath, 'r');
 
 		if ($file) {
@@ -44,8 +49,10 @@ class Artifact {
 							//once key has been found, update $currentKey, and get the line's value
 							$currentKey = $key;
 							$value = trim(substr($line, strlen($currentKey) + 1, strlen($line)));
-							$this->attributes[$currentKey] = $value;
+
 							$multiline = false;
+							if ($value === '') continue;
+							$this->attributes[$currentKey] = $value;
 						}
 					}
 				}
@@ -58,6 +65,12 @@ class Artifact {
 			}
 		}
 		fclose($file);
+
+		//generate path
+		array_pop($brokenPath); //remove filename
+		array_shift($brokenPath); //remove pages directory
+		array_push($brokenPath, $this->attributes['name']); //add page name 
+		$this->path = $brokenPath;
 	}
 
 	//returns true if artifact has tag ($string)
@@ -74,13 +87,47 @@ function createArtifacts() {
 	global $artifacts;
 	global $pageDirectory;
 
-	if ($pageDirectory) $dir = $pageDirectory.'/';
+	$files = getDirContents($pageDirectory.DIRECTORY_SEPARATOR);
 
-	if ($handle = opendir($dir)) {
-		while (($file = readdir($handle)) !== false) {
-			if (!in_array($file, array('.htaccess', '.', '..')) && !is_dir($dir.$file)) {
-				array_push($artifacts, new Artifact($dir.$file));
+	for ($i = 0; $i < sizeof($files); $i++) {
+		//get extension
+		$info = pathinfo($files[$i], PATHINFO_EXTENSION);
+
+		//check if txt
+		if ($info === 'txt') {
+			$path = explode(DIRECTORY_SEPARATOR, $files[$i]);
+			$name = $path[sizeof($path) - 1];
+			$file = '';
+
+			//add delimiter back into path directories
+			for ($j = 0; $j < sizeof($path) - 1; $j++) {
+				$path[$j] = $path[$j] . DIRECTORY_SEPARATOR;
 			}
+
+			//get path to pages directory, backwards
+			for ($j = sizeof($path) - 1; $j > 0; $j--) {
+				$file = $path[$j] . $file;
+
+				//for non-root path, get directories before pages directory
+				$pageDirectoryExploded = explode(DIRECTORY_SEPARATOR, $pageDirectory);
+				$pageDirectoryName = $pageDirectoryExploded[sizeof($pageDirectoryExploded) - 1];
+				array_pop($pageDirectoryExploded);
+
+				$pageDirectoryPrePath = implode(DIRECTORY_SEPARATOR,$pageDirectoryExploded);
+				if ($pageDirectoryPrePath) {
+					$pageDirectoryPrePath = $pageDirectoryPrePath . DIRECTORY_SEPARATOR;
+				}
+
+				//if found pages directory, push to artifacts array
+				if ($path[$j] === $pageDirectoryName . DIRECTORY_SEPARATOR) {
+					$brokenPath = explode(DIRECTORY_SEPARATOR, $file);
+					array_push($artifacts, new Artifact($pageDirectoryPrePath . $file, $brokenPath));
+					break;
+				}
+			}
+
+		} else {
+			continue;
 		}
 	}
 }
@@ -114,11 +161,28 @@ function getArtifact($string) {
 
 	if ($artifacts) {
 		for ($i = 0; $i < sizeof($artifacts); $i++) {
-			if (strtolower($artifacts[$i]->attributes['name']) === $string) {
+			if (strtolower($artifacts[$i]->attributes['name']) === strtolower($string)) {
 				return $artifacts[$i];
 			}
 		}
 	}
 	return null;
+}
+
+//get contents of directory
+function getDirContents($dir, &$results = array()){
+	$files = scandir($dir);
+
+	foreach($files as $key => $value){
+	$path = realpath($dir.DIRECTORY_SEPARATOR.$value);
+		if(!is_dir($path)) {
+			$results[] = $path;
+		} else if($value != "." && $value != "..") {
+			getDirContents($path, $results);
+			$results[] = $path;
+		}
+	}
+
+	return $results;
 }
 ?>
