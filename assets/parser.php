@@ -80,6 +80,7 @@ class Parser {
 			$artifact->attributes['image'] = null;
 			$artifact->attributes['image name'] = null;
 			$artifact->attributes['content'] = null;
+			$artifact->borkenPath = null;
 			$artifact->path = null;
 			$artifact->tags = null;
 			$artifact->attributes['title'] = 'There was an error loading this page.';
