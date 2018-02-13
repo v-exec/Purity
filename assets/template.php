@@ -49,6 +49,11 @@
 					if ($i != sizeof($artifact->path) - 1) echo '<span class="path">/</span>';
 				}
 			}
+			if ($artifacts->links) {
+				for ($i = 0; $i < sizeof($artifact->links); $i++) {
+					echo $artifact->links[$i];
+				}
+			}
 		?>
 	</div>
 <script src="assets/requestscript.js"></script>

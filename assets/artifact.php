@@ -19,6 +19,9 @@ class Artifact {
 	//tags carries a selection of tags, which can be used for grouping and organizational purposes. the array is retrieved from first to last - most important to least important
 	public $tags = array();
 
+	//links carries a set of links and their respective name associations
+	public $links = array();
+
 	//path carries the directory path of the file
 	public $path = array();
 
@@ -41,9 +44,12 @@ class Artifact {
 				//skip lines starting with '//' and empty lines
 				if ((substr($line, 0, 2)) === '//' || trim($line) === '') continue;
 
-				//get tags (unique retrieval due to it being an array)
+				//get tags and links (unique retrieval due to it being an array)
 				if (substr($line, 0, 5) === 'tags:') {
 					$this->tags = explode(',', trim(substr($line, 5, strlen($line))));
+					$multiline = false;
+				} else if (substr($line, 0, 6) === 'links:') {
+					$this->links = explode(',', trim(substr($line, 6, strlen($line))));
 					$multiline = false;
 				} else {
 					//go through each attribute and see if line begins with its declaration
