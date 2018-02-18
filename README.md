@@ -8,11 +8,11 @@ Generic text files written under appropriate format are parsed through _Purity_'
 
 At the moment, _Purity_ features:
 
-- A series of attributes per artifact (name, image, image name, title, content, tags, file path), easily customizeable and expandable for a different layout through minimal code changes.
+- A series of attributes per artifact (name, image, image name, title, content, tags, links, file path), easily customizeable and expandable for a different layout through minimal code changes.
 
 - A custom text format for creating artifacts, made for intuitive human-level writing (more information on syntax below).
 
-- A parser for the text format, allowing custom and seamless integration of jpg, png, and gif images, links, lists grouped by tags, access to other artifacts' information, and custom styling of these elements through minimal code changes.
+- A parser for the text format, allowing seamless integration of jpg, png, svg, and gif images, links, lists grouped by tags, access to other artifacts' information, and custom styling of these elements through minimal code changes.
 
 - An object system separate from the layout of each page, allowing _Purity_ to be used as a content management system for various layouts.
 
@@ -35,7 +35,9 @@ image: directory>imagename
 
 image name: text
 
-tags: tag, tag, tag...
+tags: tag, tag, tag
+
+links: link, link, link
 
 title: text
 
@@ -43,6 +45,8 @@ content: text
 ```
 
 All `attributes`, aside from `name` are optional, and can be omitted without issue. They can also be declared in any order.
+
+Some attributes are collected automatically, like the `file path`. Artifact declaration `.txt` files inside folders have their path to the root of _Purity_ saved in their `path` property.
 
 #### Rules
 
@@ -67,7 +71,7 @@ It also contains `rules`, which are inline elements used to format text accordin
 
 $[artifact>attribute] reference to artifact's attribute
 
-#[project] local link
+#[artifact] local link
 
 @[text>link] custom link
 
@@ -77,7 +81,7 @@ $[artifact>attribute] reference to artifact's attribute
 
 _[text] italic
 
-%[] div
+%[] divider
 ```
 
 Any `attributes` that take 'text' (as seen above) are capable of containing any given number of number of elements formatted through `rules`, and any given degree of nested `rules`.
