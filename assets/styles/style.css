@@ -151,7 +151,7 @@ a.external:after {
 	padding-top: 40px;
 }
 
-.small-divider {
+.divider {
 	width: 100%;
 	height: 1px;
 	margin-bottom: 40px;
@@ -162,6 +162,17 @@ a.external:after {
 	width: calc(100% - 80px);
 	border-radius: 2px;
 	margin: 0 40px 40px 40px;
+}
+
+.text-image-annotated {
+	width: calc(100% - 80px);
+	border-radius: 2px;
+	margin: 0 40px 5px 40px;
+}
+
+.annotation {
+	display: block;
+	padding: 0 40px 40px 40px;
 }
 
 .note {

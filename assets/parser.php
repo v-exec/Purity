@@ -32,36 +32,33 @@ class Parser {
 		}
 
 		//create image
-		if($artifact->attributes['image']) $artifact->attributes['image'] = $this->createImage($artifact->attributes['image'], "", false);
+		if($artifact->attributes['image']) $artifact->attributes['image'] = $this->createImagePath($artifact->attributes['image']);
 
 		//format image name
-		if ($artifact->attributes['image name']) {
-			$this->formatText($artifact, 'image name', '#', 'class="header-title neutral-link"');
-			$this->formatText($artifact, 'image name', '@', 'class="header-title neutral-link"');
-		}
+		if ($artifact->attributes['image name']) $artifact->attributes['image name'] = $this->formatTitle($artifact->attributes['image name']);
 
 		//format title
 		if ($artifact->attributes['title']) {
-			$this->formatText($artifact, 'title', '@', '');
-			$this->formatText($artifact, 'title', '#', '');
-			$this->formatText($artifact, 'title', '_', '');
-			$this->formatText($artifact, 'title', '*', '');
-			$this->formatText($artifact, 'title', '$', '');
-			$this->formatText($artifact, 'title', '>', '');
+			$this->formatText($artifact, 'title', '@');
+			$this->formatText($artifact, 'title', '#');
+			$this->formatText($artifact, 'title', '_');
+			$this->formatText($artifact, 'title', '*');
+			$this->formatText($artifact, 'title', '$');
+			$this->formatText($artifact, 'title', '>');
 		}
 
 		//format content
 		if ($artifact->attributes['content']) {
-			$this->formatText($artifact, 'content', '@', '');
-			$this->formatText($artifact, 'content', '#', '');
-			$this->formatText($artifact, 'content', '_', '');
-			$this->formatText($artifact, 'content', '*', '');
-			$this->formatText($artifact, 'content', '~', '');
-			$this->formatText($artifact, 'content', '?', '');
-			$this->formatText($artifact, 'content', '&', 'class="text-image"');
-			$this->formatText($artifact, 'content', '%', 'class="small-divider"');
-			$this->formatText($artifact, 'content', '!', '');
-			$this->formatText($artifact, 'content', '>', '');
+			$this->formatText($artifact, 'content', '@');
+			$this->formatText($artifact, 'content', '#');
+			$this->formatText($artifact, 'content', '_');
+			$this->formatText($artifact, 'content', '*');
+			$this->formatText($artifact, 'content', '~');
+			$this->formatText($artifact, 'content', '?');
+			$this->formatText($artifact, 'content', '&');
+			$this->formatText($artifact, 'content', '%');
+			$this->formatText($artifact, 'content', '!');
+			$this->formatText($artifact, 'content', '>');
 		}
 	}
 
@@ -73,9 +70,9 @@ class Parser {
 			//reformat 10 times to allow for 10 levels of nested artifact content retrieval
 			//could be theoretically infinite, but that doesn't seem practical, and will easily end up with infinite loops
 			for ($i = 0; $i < 10; $i++) {
-				$this->formatText($artifact, 'content', '-', '');
-				$this->formatText($artifact, 'content', '=', '');
-				$this->formatText($artifact, 'content', '$', '');
+				$this->formatText($artifact, 'content', '-');
+				$this->formatText($artifact, 'content', '=');
+				$this->formatText($artifact, 'content', '$');
 			}
 			
 			//clean paragraphs
@@ -85,7 +82,7 @@ class Parser {
 
 	//finds all instances of $symbol[] within $artifact->attributes[$attribute], and replaces it with the appropriate html element, and applies custom $style to said element
 	//manages nested brackets
-	private function formatText($artifact, $attribute, $symbol, $style) {
+	private function formatText($artifact, $attribute, $symbol) {
 		//check open vs closed brackets by using counter to match corresponding brackets
 		//if number of opening brackets and closing brackets is uneven count, display error
 		if (sizeof($this->allStringPositions($artifact->attributes[$attribute], '[')) != sizeof($this->allStringPositions($artifact->attributes[$attribute], ']'))) {
@@ -116,15 +113,15 @@ class Parser {
 			$string = substr($artifact->attributes[$attribute], $position, $end - $position + 1);
 			switch ($symbol) {
 				case '!':
-					$new = $this->createSubtitle($string, $style);
+					$new = $this->createSubtitle($string);
 					break;
 				
 				case '&':
-					$new = $this->createImage($string, $style, true);
+					$new = $this->createImage($string);
 					break;
 
 				case '#':
-					$new = $this->createLink($string, $style);
+					$new = $this->createLink($string);
 					break;
 
 				case '*':
@@ -136,15 +133,15 @@ class Parser {
 					break;
 
 				case '%':
-					$new = $this->createDivider($string, $style);
+					$new = $this->createDivider($string);
 					break;
 
 				case '$':
-					$new = $this->createReference($string, $style);
+					$new = $this->createReference($string);
 					break;
 
 				case '@':
-					$new = $this->createCustomLink($string, $style);
+					$new = $this->createCustomLink($string);
 					break;
 
 				case '-':
@@ -178,17 +175,26 @@ class Parser {
 		}
 	}
 
-	//takes $string and makes it into link with custom $style
-	private function createLink($string, $style) {
+	//header title
+	private function formatTitle($string) {
 		global $artifacts;
 
 		$string = $this->cleanString($string);
-		if ($this->artifactExist($string)) return '<a href="'.strtolower($string).'"'.$style.'>'.$string.'</a>';
-		return '<span '.$style.'>'.$string.'</span>';
+		if ($this->artifactExist($string)) return '<a href="'.strtolower($string).'" class="header-title">'.$string.'</a>';
+		return '<span class="header-title">'.$string.'</span>';
 	}
 
-	//takes $string and makes it into custom link with custom $style
-	private function createCustomLink($string, $style) {
+	//link
+	private function createLink($string) {
+		global $artifacts;
+
+		$string = $this->cleanString($string);
+		if ($this->artifactExist($string)) return '<a href="'.strtolower($string).'">'.$string.'</a>';
+		return '<span>'.$string.'</span>';
+	}
+
+	//custom link
+	private function createCustomLink($string) {
 		global $artifacts;
 
 		$string = $this->cleanString($string);
@@ -200,11 +206,11 @@ class Parser {
 		$word = trim(substr($string, 0, $accessor));
 		$link = trim(substr($string, $accessor + 1, strlen($string)));
 
-		if ($this->artifactExist($link)) return '<a href="'.strtolower($link).'"'.$style.'>'.$word.'</a>';
+		if ($this->artifactExist($link)) return '<a href="'.strtolower($link).'">'.$word.'</a>';
 		return '<a href="'.$link.'" class="external">'.$word.'</a>';
 	}
 
-	//takes $string and creates title list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p>' to keep flow)
+	//title list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createSpaciousList($string) {
 		global $artifacts;
 
@@ -226,7 +232,7 @@ class Parser {
 		return '</p><ul class="spacious-list">'.$list.'</ul><p>';
 	}
 
-	//takes $string and creates link list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p>' to keep flow)
+	//link list grouped by $string(tag) (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createCondensedList($string) {
 		global $artifacts;
 
@@ -248,14 +254,14 @@ class Parser {
 		return '</p><ul class="condensed-list">'.$list.'</ul><p>';
 	}
 
-	//takes $string and makes it into monospaced note (note: breaks flow of page, redeclaring '<p>' to keep flow)
+	//monospaced note (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createNote($string) {
 		$string = $this->cleanString($string);
 		$string = '</p><div class="note">'.$string.'</div><p>';
 		return $string;
 	}
 
-	//takes $string and makes it into indented quote (note: breaks flow of page, redeclaring '<p>' to keep flow)
+	//indented quote (note: breaks flow of page, redeclaring '<p>' to keep flow)
 	private function createQuote($string) {
 		$string = $this->cleanString($string);
 		$string = '</p><div class="quote">'.$string.'</div><p>';
@@ -271,10 +277,8 @@ class Parser {
 		return $string;
 	}
 
-	//takes $string and makes it into image with custom $style, only returns image path if $returnImg == false (note: breaks flow of page, redeclaring '<p>' to keep flow)
-	private function createImage($string, $style, $returnImg) {
-		if ($returnImg) $string = $this->cleanString($string);
-
+	//image path
+	private function createImagePath($string) {
 		$strings = array();
 		$strings = explode('>', trim($string));
 
@@ -291,27 +295,59 @@ class Parser {
 
 		$image = str_replace(' ', '%20', $image);
 
-		if ($returnImg) {
-			$img = '</p><img '.$style.' src="'.$image.'"><p>';
-			return $img;
-		} else return $image;
+		return $image;
 	}
 
-	//takes $string and makes it into subtitle with custom $style (note: breaks flow of page, redeclaring '<p>' to keep flow)
-	private function createSubtitle($string, $style) {
+	//image with optional annotation (note: breaks flow of page, redeclaring '<p>' to keep flow)
+	private function createImage($string) {
 		$string = $this->cleanString($string);
-		$string = '</p><h1 '.$style.'>'.$string.'</h1><p>';
+
+		$annotationParts = explode('++', trim($string));
+		$annotation;
+		$newString = $string;
+
+		if ($annotationParts[0] != $string) {
+			$newString = $annotationParts[0];
+			$annotation = '<span class="annotation">'. trim($annotationParts[1]) .'</span>';
+		}
+		
+		$strings = array();
+		$strings = explode('>', trim($newString));
+
+		$image = $this->imageDirectory;
+		
+		for ($i = 0; $i < sizeof($strings); $i++) {
+			$image = $image.'/'.$strings[$i];
+		}
+
+		$image = $image.'.png';
+		if (!file_exists($image)) $image = substr($image, 0, strlen($image) - 4).'.jpg';
+		if (!file_exists($image)) $image = substr($image, 0, strlen($image) - 4).'.gif';
+		if (!file_exists($image)) $image = substr($image, 0, strlen($image) - 4).'.svg';
+
+		$image = str_replace(' ', '%20', $image);
+
+		if ($annotation) $img = '</p><img class="text-image-annotated" src="'.$image.'">' . $annotation . '';
+		else $img = '</p><img class="text-image" src="'.$image.'"><p>';
+
+		return $img;
+	}
+
+	//subtitle (note: breaks flow of page, redeclaring '<p>' to keep flow)
+	private function createSubtitle($string) {
+		$string = $this->cleanString($string);
+		$string = '</p><h1>'.$string.'</h1><p>';
 		return $string;
 	}
 
-	//takes $string and makes it italic
+	//italic
 	private function createItalic($string) {
 		$string = $this->cleanString($string);
 		$string = '<em>'.$string.'</em>';
 		return $string;
 	}
 
-	//takes $string and makes it bold
+	//bold
 	private function createBold($string) {
 		$string = $this->cleanString($string);
 		$string = '<strong>'.$string.'</strong>';
@@ -319,7 +355,7 @@ class Parser {
 	}
 
 	//creates reference to self, or to another artifact's data
-	private function createReference($string, $style) {
+	private function createReference($string) {
 		global $v;
 		global $artifacts;
 
@@ -340,10 +376,10 @@ class Parser {
 		}
 	}
 
-	//makes divider with custom $style (note: breaks flow of page, redeclaring '<p>' to keep flow)
-	private function createDivider($string, $style) {
+	//divider (note: breaks flow of page, redeclaring '<p>' to keep flow)
+	private function createDivider($string) {
 		$string = $this->cleanString($string);
-		$string = '</p><div '.$style.'></div><p>';
+		$string = '</p><div class="divider"></div><p>';
 		return $string;
 	}
 

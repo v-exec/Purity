@@ -128,11 +128,11 @@ Creates a custom link to any given URL.
 @[Custom link>https://github.com/v-exec/Purity]
 
 %[======================================]
-& [dir>img] image
+& [dir>img _[optional] ++ text] image
 +
 +
-Creates an image.
-&[example>di]
+Creates an image, with an optional annotation.
+&[example>di ++ Annotation.]
 
 %[======================================]
 * [text] bold

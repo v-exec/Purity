@@ -75,7 +75,7 @@ $[artifact>attribute] reference to artifact's attribute
 
 @[text>link] custom link
 
-&[directory>image name] image
+&[directory>image name (optional) ++ text ] image (with optional annotation)
 
 *[text] bold
 
