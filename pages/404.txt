@@ -6,6 +6,8 @@ image name: #[404]
 
 tags: page, 404
 
+links: Google>https://google.com, Purity>https://github.com/v-exec/Purity
+
 title: The #[404] page is shown whenever an _[artifact] can't be found.
 
 content: This is the #[404] page. Seems like you tried to search for _[$[self]] and couldn't find it.

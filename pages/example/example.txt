@@ -6,6 +6,8 @@ image name: #[Example]
 
 tags: page, content
 
+links: Google>https://google.com, Purity>https://github.com/v-exec/Purity
+
 title: The #[example] page covers all the _[rules] of _[Purity].
 
 content: In this page are showcased all _[rules] in _[Purity].
@@ -82,7 +84,10 @@ Executes PHP code.
 >["Result of '2 + 2', calculated with php: " . (2 + 2);]
 
 %[======================================]
-issueRequest(_[string] request type, _[string] artifact name, _[string (optional)] requested attribute) Javascript request issue to _[Purity]. (Request reponses for following examples found in console.log).
+issueRequest(_[string] request type, _[string] artifact name, _[string (optional)] requested attribute)
++
++
+Javascript request issue to _[Purity]. (Request reponses for following examples found in console.log)
 +
 +
 Does "index" artifact exist? Query says: <a href="javascript:void(0)" onclick="issueRequest('verifyExistence', 'index')">click to issue request</a>.

@@ -6,6 +6,8 @@ image name: #[Index]
 
 tags: page, content
 
+links: Google>https://google.com, Purity>https://github.com/v-exec/Purity
+
 title: The #[Index] page is the default landing page.
 
 content: This is an example setup for an instance of _[Purity].

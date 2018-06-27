@@ -49,9 +49,15 @@
 					if ($i != sizeof($artifact->path) - 1) echo '<span class="path">/</span>';
 				}
 			}
+		?>
+		<br>
+		<br>
+		Links:
+		<?php
 			if ($artifact->links) {
 				for ($i = 0; $i < sizeof($artifact->links); $i++) {
 					echo $artifact->links[$i];
+					echo ' ';
 				}
 			}
 		?>
