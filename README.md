@@ -2,23 +2,31 @@
 
 _Purity_ is a specialized wiki / authoring engine written in PHP. A custom variant of it is used as the back-end for [V-OS](http://v-os.ca).
 
-Generic text files written under appropriate format are parsed through _Purity_'s multi-layered parser into PHP objects called `artifacts`. Each `artifact` corresponds to a page, and once populated, is parsed into its html counterpart, with the capability to apply custom styling to the parsed results.
+Text files written in the appropriate format are parsed through _Purity_'s multi-layered parser into PHP objects called `artifacts`. Each `artifact` corresponds to a page, and once populated, is parsed into its html counterpart.
 
-## Features
+In short, _Purity_ is a single-template content management system, made for (me, but also) programmers / people minimally experienced in web dev who:
+1. Don't want to deal with creating their own parsing system.
+2. Want to create a wiki-site / have a consistent page layout.
+3. Want to use a lightweight, simple system.
+4. Want to retain control over how things look and behave.
 
-At the moment, _Purity_ features:
+## Features and Functionality
 
-- A series of attributes per artifact (name, image, image name, title, content, tags, links, file path), easily customizeable and expandable for a different layout through minimal code changes.
+_Purity_ is a content management system. An `artifact` is a data structure which stores the same type of information for each 'page', making _Purity_ an appropriate engine for wiki-sites, as wiki pages are constructed in a similar fashion, but contain unique content.
 
-- A custom text format for creating artifacts, made for intuitive human-level writing (more information on syntax below).
+A PHP/HTML file that acts as a template with placeholders for an `artifact's` data is called each time a page is requested, and then that template is populated with the `artifact's` data. This is why there's technically only one 'page', really, in an instance of _Purity_. That one page just has different content loaded onto it depending on what the client has requested.
 
-- A parser for the text format, allowing seamless integration of jpg, png, svg, and gif images, links, lists grouped by tags, access to other artifacts' information, and custom styling of these elements through minimal code changes.
+`Artifacts` contain a name, image, image name, title, text, tags, custom links, and a file path. These `artifacts` are generated through text files written in a human-friendly format, with the intent of making writing, editing, and adding new content easy (more information on syntax below).
 
-- An object system separate from the layout of each page, allowing _Purity_ to be used as a content management system for various layouts.
+Using predominantly HTML and CSS, and very limited PHP, one can make a template that displays their content as they please, whilst having _Purity_ deal with parsing the text files.
 
-- A simple API allowing basic information to be dynamically requested through local javascript.
+The parser allows for seamless integration of jpg, png, svg, and gif images / videos, creation of links (both pointing towards other `artifacts` and other sites, lists grouped by tags, access to other artifacts' information, embedded media, and custom styling of these elements through CSS.
 
-- The option to create a static instance of _Purity_ - allowing for light hosting.
+For the more tech-oriented, you can also create `artifacts` procedurally in _Purity_, if ever you want auto-generated pages. You can also mix PHP and the intuitive writing system if you want parts of a page to be generative.
+
+_Purity_ has a simple API allowing basic information to be dynamically requested through client-side javascript.
+
+There's also option to create a fully static instance of _Purity_ - allowing for light hosting on sites like Github (information on all these things below).
 
 ## Syntax
 
@@ -26,7 +34,13 @@ The syntax for _Purity_'s writing system is quite simple.
 
 #### Attributes
 
-It contains `attributes`, which are declared through the attribute name, followed by a colon, and the information to be attributed to said attribute.
+It contains `attributes`, which are the primary constituents of an `artifact`.
+
+These are declared through the attribute name, followed by a colon, and the information to be attributed to said attribute.
+
+All `attributes`, aside from `name` are optional, and can be omitted without issue. They can also be declared in any order.
+
+Some attributes are collected automatically, like the `file path`. The artifact declaration `.txt` files inside folders have their path to the root of _Purity_ saved in their `path` property.
 
 ```
 name: text
@@ -37,20 +51,20 @@ image name: text
 
 tags: tag, tag, tag
 
-links: link, link, link
+links: linkname>link, linkname>link, linkname>link
 
 title: text
 
 content: text
 ```
 
-All `attributes`, aside from `name` are optional, and can be omitted without issue. They can also be declared in any order.
-
-Some attributes are collected automatically, like the `file path`. Artifact declaration `.txt` files inside folders have their path to the root of _Purity_ saved in their `path` property.
-
 #### Rules
 
-It also contains `rules`, which are inline elements used to format text according to predetermined functions. Most `rules`' formatting can have a custom style, which is applied in the parser.
+It also contains `rules`, which are inline elements used to format text according to predetermined functions.
+
+These are declared through a 'rune' syntax, where the text one wishes to be formatted is between square brackets `[]`, with a symbol before these brackets denoting the type of formatting that should be executed.
+
+Any `attributes` that take 'text' (as seen above) are capable of containing any given number of number of elements formatted through `rules`, and any given degree of nested `rules`.
 
 ```
 =[tag] link list
@@ -84,11 +98,11 @@ _[text] italic
 %[] divider
 ```
 
-Any `attributes` that take 'text' (as seen above) are capable of containing any given number of number of elements formatted through `rules`, and any given degree of nested `rules`.
-
 #### Special
 
 Special syntax (syntax that does not conform to the `symbol[data]` format) is very minimal.
+
+The text written for _Purity_  is _not_ parsed using whitespace, therefore, deliberate line breaks for content and titles must be declared through `+`.
 
 `+ line break`
 
@@ -97,8 +111,6 @@ Special syntax (syntax that does not conform to the `symbol[data]` format) is ve
 `> accessor`
 
 `// comment`
-
-The text written for _Purity_  is _not_ parsed using whitespace, therefore, deliberate line breaks for content and titles must be declared through `+`.
 
 ## Additional Information
 
@@ -120,7 +132,7 @@ To ensure functionaliy, be sure your server allows AJAX requests.
 
 #### Running _Purity_ In A Subfolder
 
-In the case of running _Purity_ in a subfolder, rather than the root directory of a site, the main/root `.htaccess` must be modified so that:
+In the case of running _Purity_ in a subfolder, rather than the root directory of a site, the main/root `.htaccess` must be modified so that the following lines:
 
 ```
 RewriteRule ^(.*)$ $1.php
@@ -133,6 +145,12 @@ include the path to the directory _Purity_ is in, like so:
 RewriteRule ^(.*)$ /subfolder/$1.php
 RewriteRule ^(.+)$ /subfolder/page.php?v=$1 [NC,L]
 ```
+
+#### Creating Procedural `Artifacts`
+
+To create an `artifact` procedurally, simply write `$var = new CustomArtifact();`. This data structure is identical to a regular `artifact`, but its attributes are all empty.
+
+I would recommend understanding the anatomy of an `artifact` before creating custom ones. Simply take a look at `assets/artifact.php`.
 
 #### Exporting a Static Site
 

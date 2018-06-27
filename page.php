@@ -11,6 +11,7 @@ if (isset($_GET['v'])) {
 
 include 'assets/parser.php';
 include 'assets/artifact.php';
+include 'assets/customartifact.php';
 include 'assets/static.php';
 
 //name of directory for artifact declarations
