@@ -294,6 +294,7 @@ class Parser {
 		if (!file_exists($image)) $image = substr($image, 0, strlen($image) - 4).'.svg';
 
 		$image = str_replace(' ', '%20', $image);
+		$image = str_replace("'", "\'", $image);
 
 		return $image;
 	}
