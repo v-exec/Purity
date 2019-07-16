@@ -61,6 +61,14 @@
 				}
 			}
 		?>
+		<br>
+		<br>
+		Last Modified:
+		<?php
+			if ($artifact->lastModifiedStamp) {
+				echo $artifact->lastModifiedStamp;
+			}
+		?>
 	</div>
 <script src="assets/requestscript.js"></script>
 </body>

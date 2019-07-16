@@ -28,6 +28,9 @@ class Artifact {
 	//pure path array, no styling
 	public $brokenPath = array();
 
+	//last modified time in unix timestamp
+	public $lastModifiedStamp = null;
+
 	//constructor parses file to retrieve its contents
 	public function __construct($filePath, $brokenPath) {
 
@@ -80,6 +83,9 @@ class Artifact {
 		array_shift($brokenPath); //remove pages directory
 		array_push($brokenPath, $this->attributes['name']); //add page name 
 		$this->path = $brokenPath;
+
+		//get file's last modified timestamp
+		$this->lastModifiedStamp = date(filemtime($filePath));
 	}
 
 	//returns true if artifact has tag ($string)
