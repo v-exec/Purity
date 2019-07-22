@@ -12,21 +12,19 @@ In short, _Purity_ is a single-template content management system, made for (me,
 
 ## Features and Functionality
 
-_Purity_ is a content management system. An `artifact` is a data structure which stores the same type of information for each 'page', making _Purity_ an appropriate engine for wiki-sites, as wiki pages are constructed in a similar fashion, but contain unique content.
+_Purity_ is a content management system, made out of `artifacts`. An `artifact` is a data structure represening a template page, making _Purity_ an appropriate engine for wiki-sites, as wiki pages are typically template-based with unique content displayed on a modular interface.
 
-A PHP/HTML file that acts as a template with placeholders for an `artifact's` data is called each time a page is requested, and then that template is populated with the `artifact's` data. This is why there's technically only one 'page', really, in an instance of _Purity_. That one page just has different content loaded onto it depending on what the client has requested.
+A PHP/HTML file that acts as a template with placeholders for an `artifact`'s data is called each time a page is requested, and then that template is populated with the `artifact`'s data.
 
 `Artifacts` contain a name, image, image name, title, text, tags, custom links, and a file path. These `artifacts` are generated through text files written in a human-friendly format, with the intent of making writing, editing, and adding new content easy (more information on syntax below).
 
 Using predominantly HTML and CSS, and very limited PHP, one can make a template that displays their content as they please, whilst having _Purity_ deal with parsing the text files.
 
-The parser allows for seamless integration of jpg, png, svg, and gif images / videos, creation of links (both pointing towards other `artifacts` and other sites, lists grouped by tags, access to other artifacts' information, embedded media, and custom styling of these elements through CSS.
+The parser allows for seamless integration of jpg, png, svg, and gif images / videos, creation of links (both pointing towards other `artifacts` and other sites, lists grouped by tags, access to other artifacts' information, embedded media, and custom styling of these elements through CSS).
 
-For the more tech-oriented, you can also create `artifacts` procedurally in _Purity_, if ever you want auto-generated pages. You can also mix PHP and the intuitive writing system if you want parts of a page to be generative.
+For the more tech-oriented, `artifacts` can also be created procedurally in _Purity_, if ever one wants auto-generated pages, for instance. Furthermore, PHP and _Purity_'s intuitive writing system can be mixed; that is to say, code can be called from the text - making it very useful to expand and implement custom content formatting and generation.
 
 _Purity_ has a simple API allowing basic information to be dynamically requested through client-side javascript.
-
-There's also option to create a fully static instance of _Purity_ - allowing for light hosting on sites like Github (information on all these things below).
 
 ## Syntax
 
@@ -150,12 +148,4 @@ RewriteRule ^(.+)$ /subfolder/page.php?v=$1 [NC,L]
 
 To create an `artifact` procedurally, simply write `$var = new CustomArtifact();`. This data structure is identical to a regular `artifact`, but its attributes are all empty.
 
-I would recommend understanding the anatomy of an `artifact` before creating custom ones. Simply take a look at `assets/artifact.php`.
-
-#### Exporting a Static Site
-
-To export a static instance of _Purity_, any WAMP/LAMP environment will do.
-
-Simply change the `static` variable in `page.php` to `true`, and all pages' `.html` files will be exported to a `/static` folder. Be sure to make this option `false` if you are hosting a dynamic instance _Purity_ on a site. The path of their links to scripts and images will be from the root directory.
-
-Be sure to double-check your filenames: operating systems' filename encoding may differ for non-standard characters.
+It is recommended to understand the anatomy of an `artifact` before creating custom ones. Simply take a look at `assets/artifact.php`.

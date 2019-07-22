@@ -12,7 +12,6 @@ if (isset($_GET['v'])) {
 include 'assets/parser.php';
 include 'assets/artifact.php';
 include 'assets/customartifact.php';
-include 'assets/static.php';
 
 //name of directory for artifact declarations
 $pageDirectory = 'pages';
@@ -38,9 +37,5 @@ ob_start();
 include 'assets/template.php';
 $page = ob_get_contents();
 ob_end_clean();
-
-//create files for static site?
-$makeStatic = false;
-if ($makeStatic == true) exportStatic();
-else echo $page;
+echo $page;
 ?>
