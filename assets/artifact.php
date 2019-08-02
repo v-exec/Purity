@@ -39,10 +39,13 @@ class Artifact {
 
 		if ($file) {
 			$currentKey = null;
-
+			$lineCount = 0;
 			while (($line = fgets($file)) !== false) {
 
 				$multiline = true;
+
+				//remove utf8 bom characters from first line of file
+				if ($lineCount == 0) $line = remove_utf8_bom($line);
 
 				//skip lines starting with '//' and empty lines
 				if ((substr($line, 0, 2)) === '//' || trim($line) === '') continue;
@@ -74,6 +77,8 @@ class Artifact {
 					if (substr($line, 0, 1) === '+' && substr($line, 1, 1) !== ' ' && substr($line, 1, 1) !== '+') $this->attributes[$currentKey] = $this->attributes[$currentKey].'<br>';
 					else $this->attributes[$currentKey] = $this->attributes[$currentKey].$line;
 				}
+
+				$lineCount++;
 			}
 		}
 		fclose($file);
@@ -230,5 +235,12 @@ function getRelated($artifact, $getName, $nameStyle, $titleStyle, $sameStyle) {
 
 	//return $contents;
 	return $contents;
+}
+
+//remove UTF8 Bom
+function remove_utf8_bom($text) {
+	$bom = pack('H*','EFBBBF');
+	$text = preg_replace("/^$bom/", '', $text);
+	return $text;
 }
 ?>
