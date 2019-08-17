@@ -28,7 +28,6 @@ Here follows a list of all _[rules], a description for each one, and an accompan
 Creates a list of artifacts that have this tag.
 =[page]
 
-
 %[======================================]
 - [tag] title list
 +
@@ -140,17 +139,17 @@ Creates an image, with an optional annotation.
 &[example>di ++ Annotation.]
 
 %[======================================]
-^ [dir>audio] audio
+^ [dir>audio  _[optional] ++ text] audio
 +
 +
-Creates audio element.
+Creates an audio element, with an optional title.
 ^[example>mythaphil ++ Annotation.]
 
 %[======================================]
-| [dir>video] video
+| [dir>video  _[optional] ++ text] video
 +
 +
-Creates video element.
+Creates a video element, with an optional annotation.
 |[example>nom ++ Annotation.]
 
 %[======================================]
