@@ -20,7 +20,7 @@ A PHP/HTML file that acts as a template with placeholders for an `artifact`'s da
 
 Using predominantly HTML and CSS, and very limited PHP, one can make a template that displays their content as they please, whilst having _Purity_ deal with parsing the text files.
 
-The parser allows for seamless integration of jpg, png, svg, and gif images / videos, creation of links (both pointing towards other `artifacts` and other sites, lists grouped by tags, access to other artifacts' information, embedded media, and custom styling of these elements through CSS).
+The parser allows for seamless integration of jpg, png, svg, and gif images, videos, audio files, creation of links (both pointing towards other `artifacts` and other sites, lists grouped by tags, access to other artifacts' information, embedded media, and custom styling of these elements through CSS).
 
 For the more tech-oriented, `artifacts` can also be created procedurally in _Purity_, if ever one wants auto-generated pages, for instance. Furthermore, PHP and _Purity_'s intuitive writing system can be mixed; that is to say, code can be called from the text - making it very useful to expand and implement custom content formatting and generation.
 
@@ -87,7 +87,11 @@ $[artifact>attribute] reference to artifact's attribute
 
 @[text>link] custom link
 
-&[directory>image name (optional) ++ text ] image (with optional annotation)
+&[directory>image name (optional) ++ text] image (with optional annotation)
+
+^[directory>audio name (optional) ++ text] audio (with optional annotation)
+
+|[directory>video name (optional) ++ text] video (with optional annotation)
 
 *[text] bold
 

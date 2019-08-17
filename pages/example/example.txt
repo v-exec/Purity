@@ -133,11 +133,25 @@ Creates a custom link to any given URL.
 @[Custom link>https://github.com/v-exec/Purity]
 
 %[======================================]
-& [dir>img _[optional] ++ text] image
+& [dir>image _[optional] ++ text] image
 +
 +
 Creates an image, with an optional annotation.
 &[example>di ++ Annotation.]
+
+%[======================================]
+^ [dir>audio] audio
++
++
+Creates audio element.
+^[example>mythaphil ++ Annotation.]
+
+%[======================================]
+| [dir>video] video
++
++
+Creates video element.
+|[example>nom ++ Annotation.]
 
 %[======================================]
 * [text] bold
@@ -156,7 +170,6 @@ Makes text italic.
 +
 +
 _[Italic text.]
-
 
 %[======================================]
 % [] div

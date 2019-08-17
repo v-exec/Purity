@@ -7,8 +7,10 @@ In the event of an expansion or customization of this system,
 new parsing criteria and features can seamlessly be introduced as a basic addition to the existing code.
 */
 class Parser {
-	//image directory
-	private $imageDirectory = 'images';
+	//directories
+	private $imageDirectory = 'media/images';
+	private $soundDirectory = 'media/sounds';
+	private $videoDirectory = 'media/videos';
 
 	//goes through all artifact attributes that are independant from other artifacts and formats each one according to existing formatting rules
 	public function firstFormat($artifact) {
@@ -56,6 +58,8 @@ class Parser {
 			$this->formatText($artifact, 'content', '~');
 			$this->formatText($artifact, 'content', '?');
 			$this->formatText($artifact, 'content', '&');
+			$this->formatText($artifact, 'content', '^');
+			$this->formatText($artifact, 'content', '|');
 			$this->formatText($artifact, 'content', '%');
 			$this->formatText($artifact, 'content', '!');
 			$this->formatText($artifact, 'content', '>');
@@ -118,6 +122,14 @@ class Parser {
 				
 				case '&':
 					$new = $this->createImage($string);
+					break;
+
+				case '^':
+					$new = $this->createAudio($string);
+					break;
+
+				case '|':
+					$new = $this->createVideo($string);
 					break;
 
 				case '#':
@@ -304,12 +316,12 @@ class Parser {
 		$string = $this->cleanString($string);
 
 		$annotationParts = explode('++', trim($string));
-		$annotation;
+		$annotation = '';
 		$newString = $string;
 
 		if ($annotationParts[0] != $string) {
 			$newString = $annotationParts[0];
-			$annotation = '<span class="annotation">'. trim($annotationParts[1]) .'</span>';
+			$annotation = '<span class="image-annotation">'. trim($annotationParts[1]) .'</span>';
 		}
 		
 		$strings = array();
@@ -328,10 +340,79 @@ class Parser {
 
 		$image = str_replace(' ', '%20', $image);
 
-		if ($annotation) $img = '</p><img class="text-image-annotated" src="'.$image.'">' . $annotation . '';
+		if ($annotation != '') $img = '</p><img class="text-image-annotated" src="'.$image.'">' . $annotation . '<p>';
 		else $img = '</p><img class="text-image" src="'.$image.'"><p>';
 
 		return $img;
+	}
+
+	//audio player with optional annotation (note: breaks flow of page, redeclaring '<p>' to keep flow)
+	private function createAudio($string) {
+		$string = $this->cleanString($string);
+
+		$annotationParts = explode('++', trim($string));
+		$annotation = '';
+		$newString = $string;
+
+		if ($annotationParts[0] != $string) {
+			$newString = $annotationParts[0];
+			$annotation = '<span class="audio-annotation">'. trim($annotationParts[1]) .'</span>';
+		}
+
+		$strings = array();
+		$strings = explode('>', trim($newString));
+
+		$sound = $this->soundDirectory;
+
+		for ($i = 0; $i < sizeof($strings); $i++) {
+			$sound = $sound.'/'.$strings[$i];
+		}
+
+		$sound = $sound.'.mp3';
+		if (!file_exists($sound)) $sound = substr($sound, 0, strlen($sound) - 4).'.wav';
+		if (!file_exists($sound)) $sound = substr($sound, 0, strlen($sound) - 4).'.acc';
+		if (!file_exists($sound)) $sound = substr($sound, 0, strlen($sound) - 4).'.ogg';
+
+		$sound = str_replace(' ', '%20', $sound);
+		
+		if ($annotation != '') $aud = '</p>'.$annotation.'<audio controls class="audio-annotated"><source class="audio-source" src="'.$sound.'"></audio><p>';
+		else $aud = '</p><audio controls class="audio"><source class="audio-source" src="'.$sound.'"></audio><p>';
+		
+		return $aud;
+	}
+
+	//video player with optional annotation (note: breaks flow of page, redeclaring '<p>' to keep flow)
+	private function createVideo($string) {
+		$string = $this->cleanString($string);
+
+		$annotationParts = explode('++', trim($string));
+		$annotation = '';
+		$newString = $string;
+
+		if ($annotationParts[0] != $string) {
+			$newString = $annotationParts[0];
+			$annotation = '<span class="video-annotation">'. trim($annotationParts[1]) .'</span>';
+		}
+
+		$strings = array();
+		$strings = explode('>', trim($newString));
+
+		$video = $this->videoDirectory;
+
+		for ($i = 0; $i < sizeof($strings); $i++) {
+			$video = $video.'/'.$strings[$i];
+		}
+
+		$video = $video.'.mp4';
+		if (!file_exists($video)) $video = substr($video, 0, strlen($video) - 4).'.webm';
+		if (!file_exists($video)) $video = substr($video, 0, strlen($video) - 5).'.ogg';
+
+		$video = str_replace(' ', '%20', $video);
+		
+		if ($annotation != '') $vid = '</p><video controls class="video-annotated"><source class="video-source" src="'.$video.'"></video>'.$annotation.'<p>';
+		else $vid = '</p><video controls class="video"><source class="video-source" src="'.$video.'"></video><p>';
+		
+		return $vid;
 	}
 
 	//subtitle (note: breaks flow of page, redeclaring '<p>' to keep flow)
