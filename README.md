@@ -91,7 +91,7 @@ $[artifact>attribute] reference to artifact's attribute
 
 ^[directory>audio name (optional) ++ text] audio (with optional annotation)
 
-|[directory>video name (optional) ++ text] video (with optional annotation)
+<[directory>video name (optional) ++ text] video (with optional annotation)
 
 *[text] bold
 
