@@ -116,6 +116,10 @@ The text written for _Purity_  is _not_ parsed using whitespace, therefore, deli
 
 ## Additional Information
 
+#### Setup
+
+Simply download / fork / clone this repository and copy it onto your server. Your server should be running Apache, and PHP version 7.2. For testing, feel free to use local server software like WAMP, LAMP, MAMP, XAMPP, etc.
+
 #### Example
 
 For a real-world example of an entire instance of _Purity_, take a look at the files found in this repo: they showcase a functional and tested example of a working instance. The example instance was made exclusively using HTML (`assets/template.php`), CSS (`/assets/styles/style.css`), and text files (`/pages`), without touching any part of _Purity_ itself.
