@@ -16,17 +16,25 @@ $artifacts = array();
 createArtifacts();
 formatArtifacts();
 
+$req = '';
+$art = '';
+$att = '';
+
+if ($_GET['request']) $req = htmlspecialchars($_GET['request'], ENT_QUOTES, 'UTF-8');
+if ($_GET['artifact']) $art = htmlspecialchars($_GET['artifact'], ENT_QUOTES, 'UTF-8');
+if ($_GET['attribute']) $att = htmlspecialchars($_GET['attribute'], ENT_QUOTES, 'UTF-8');
+
 //check if artifact exists (returns true/false)
-if ($_GET['request'] === 'verifyExistence') {
-	if (getArtifact($_GET['artifact']) != null) {
+if ($req === 'verifyExistence') {
+	if (getArtifact($art) != null) {
 		echo 'true';
 		return;
 	} else echo 'false';
 }
 
 //get link for given artifact (returns link tag if artifact exists)
-if ($_GET['request'] === 'createArtifactLink') {
-	$string = $_GET['artifact'];
+if ($req === 'createArtifactLink') {
+	$string = $art;
 	$style = 'class="neutral-link"';
 
 	global $artifacts;
@@ -40,9 +48,9 @@ if ($_GET['request'] === 'createArtifactLink') {
 }
 
 //get attribute of artifact (returns formatted attribute of artifact, if artifact exists)
-if ($_GET['request'] === 'getArtifactAttribute') {
-	if (getArtifact($_GET['artifact']) != null) {
-		echo getArtifact($_GET['artifact'])->attributes[$_GET['attribute']];
+if ($req === 'getArtifactAttribute') {
+	if (getArtifact($art) != null) {
+		echo getArtifact($art)->attributes[$att];
 		return;
 	} else {
 		echo 'Artifact does not exist.';
