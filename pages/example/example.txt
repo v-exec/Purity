@@ -146,11 +146,11 @@ Creates an audio element, with an optional title.
 ^[example>mythaphil ++ Annotation.]
 
 %[======================================]
-< [dir>video  _[optional] ++ text] video
+, [dir>video  _[optional] ++ text] video
 +
 +
 Creates a video element, with an optional annotation.
-<[example>nom ++ Annotation.]
+,[example>nom ++ Annotation.]
 
 %[======================================]
 * [text] bold

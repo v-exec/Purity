@@ -91,7 +91,7 @@ $[artifact>attribute] reference to artifact's attribute
 
 ^[directory>audio name (optional) ++ text] audio (with optional annotation)
 
-<[directory>video name (optional) ++ text] video (with optional annotation)
+,[directory>video name (optional) ++ text] video (with optional annotation)
 
 *[text] bold
 
@@ -118,7 +118,12 @@ The text written for _Purity_  is _not_ parsed using whitespace, therefore, deli
 
 #### Setup
 
-Simply download / fork / clone this repository and copy it onto your server. Your server should be running Apache, and PHP version 7.2. For testing, feel free to use local server software like WAMP, LAMP, MAMP, XAMPP, etc.
+Download / fork / clone this repository and copy it onto your server. Your server should be running Apache, and PHP version 7.2. For testing, feel free to use local server software like WAMP, LAMP, MAMP, XAMPP, etc.
+
+Make sure to change `.htaccess` paths if you're working in a subfolder. Change
+`RewriteRule ^(.+)$ /page.php?v=$1 [NC,L]` to `RewriteRule ^(.+)$ /subfolder/page.php?v=$1 [NC,L]`.
+
+And for proper 404 functionality (_Purity_ uses a custom 404 page for missing artifacts as it is setup to handle all page requests in PHP), put your site URL in the bottom of `page.php` in `redirect()`.
 
 #### Example
 
@@ -135,22 +140,6 @@ _Purity_ has a simple API for requesting basic `artifact` information using clie
 - Request for a select `artifact`'s `attribute`.
 
 To ensure functionaliy, be sure your server allows AJAX requests.
-
-#### Running _Purity_ In A Subfolder
-
-In the case of running _Purity_ in a subfolder, rather than the root directory of a site, the main/root `.htaccess` must be modified so that the following lines:
-
-```
-RewriteRule ^(.*)$ $1.php
-RewriteRule ^(.+)$ /page.php?v=$1 [NC,L]
-```
-
-include the path to the directory _Purity_ is in, like so:
-
-```
-RewriteRule ^(.*)$ /subfolder/$1.php
-RewriteRule ^(.+)$ /subfolder/page.php?v=$1 [NC,L]
-```
 
 #### Creating Procedural `Artifacts`
 
