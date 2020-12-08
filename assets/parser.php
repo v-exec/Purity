@@ -375,7 +375,7 @@ class Parser {
 
 		$sound = str_replace(' ', '%20', $sound);
 		
-		if ($annotation != '') $aud = '</p>'.$annotation.'<audio controls class="audio-annotated"><source class="audio-source" src="'.$sound.'"></audio><p>';
+		if ($annotation != '') $aud = '</p><audio controls class="audio-annotated"><source class="audio-source" src="'.$sound.'"></audio>'.$annotation.'<p>';
 		else $aud = '</p><audio controls class="audio"><source class="audio-source" src="'.$sound.'"></audio><p>';
 		
 		return $aud;

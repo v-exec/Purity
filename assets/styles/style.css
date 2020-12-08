@@ -1,3 +1,12 @@
+:root {
+	--default: #000;
+	--antiDefault: #fff;
+
+	--background: #eee;
+	--highlight: #bbb;
+	--dark: #777;
+}
+
 /*-----------GENERAL-----------*/
 html {
 	box-sizing: border-box;
@@ -13,8 +22,8 @@ html {
 
 body {
 	font-family: "Roboto";
-	color: #000;
-	background-color: #eee;
+	color: var(--default);
+	background-color: var(--background);
 	overflow-x: hidden;
 }
 
@@ -35,7 +44,7 @@ h1 {
 a {
 	display: inline;
 	text-decoration: none;
-	color: #000;
+	color: var(--default);
 	font-weight: 700;
 }
 
@@ -45,7 +54,7 @@ a:hover {
 
 a.external:after {
 	content: "~";
-	color: #777;
+	color: var(--dark);
 }
 
 .neutral-link {
@@ -58,22 +67,22 @@ a.external:after {
 }
 
 ::-moz-selection {
-	color: #000;
-	background: #eee;
+	color: var(--default);
+	background: var(--background);
 }
 
 ::selection {
-	color: #000;
-	background: #eee;
+	color: var(--default);
+	background: var(--background);
 }
 
 ::-webkit-scrollbar {
 	width: 6px;
-	background-color: #eee;
+	background-color: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: #bbb;
+	background-color: var(--highlight);
 }
 
 /*-----------MEDIA-----------*/
@@ -81,7 +90,7 @@ a.external:after {
 	width: 100%;
 	height: 500px;
 	border-radius: 2px;
-	border: solid 1px #eee;
+	border: solid 1px var(--background);
 }
 
 /*-----------HEADER-----------*/
@@ -92,11 +101,11 @@ a.external:after {
 	margin-right: auto;
 	margin-top: 80px;
 	height: 500px;
-	border-left: solid 1px #eee;
-	border-right: solid 1px #eee;
-	border-top: solid 1px #eee;
-	border-bottom: solid 1px #eee;
-	background-color: #fff;
+	border-left: solid 1px var(--background);
+	border-right: solid 1px var(--background);
+	border-top: solid 1px var(--background);
+	border-bottom: solid 1px var(--background);
+	background-color: var(--antiDefault);
 }
 
 .header-image {
@@ -120,26 +129,26 @@ a.external:after {
 	position: relative;
 	width: 100%;
 	z-index: 1;
-	border-top: solid 1px #eee;
-	border-bottom: solid 1px #eee;
+	border-top: solid 1px var(--background);
+	border-bottom: solid 1px var(--background);
 }
 
 #body-content {
 	max-width: 900px;
 	margin: auto;
 	padding-top: 40px;
-	background-color: #fff;
-	border-left: solid 1px #eee;
-	border-right: solid 1px #eee;
+	background-color: var(--antiDefault);
+	border-left: solid 1px var(--background);
+	border-right: solid 1px var(--background);
 }
 
 #title {
 	max-width: 900px;
 	margin: auto;
 	padding: 40px 40px 40px 40px;
-	background-color: #fff;
-	border-left: solid 1px #eee;
-	border-right: solid 1px #eee;
+	background-color: var(--antiDefault);
+	border-left: solid 1px var(--background);
+	border-right: solid 1px var(--background);
 	overflow: auto;
 }
 
@@ -155,57 +164,38 @@ a.external:after {
 	width: 100%;
 	height: 1px;
 	margin-bottom: 40px;
-	background-color: #eee;
+	background-color: var(--background);
 }
 
-.text-image {
-	width: calc(100% - 80px);
-	border-radius: 2px;
-	margin: 0 40px 40px 40px;
+audio::-webkit-media-controls,
+audio::-webkit-media-controls-panel {
+	background: var(--background);
 }
 
-.text-image-annotated {
-	width: calc(100% - 80px);
-	border-radius: 2px;
-	margin: 0 40px 5px 40px;
+audio:focus,
+video:focus {
+	outline: none;
 }
 
-.image-annotation {
-	display: block;
-	padding: 0 40px 40px 40px;
-}
-
-.audio {
-	width: calc(100% - 80px);
-	height: 50px;
-	border-radius: 2px;
-	margin: 0 40px 40px 40px;
-}
-
-.audio-annotated {
-	width: calc(100% - 80px);
-	height: 50px;
-	border-radius: 2px;
-	margin: 0 40px 40px 40px;
-}
-
-.audio-annotation {
-	display: block;
-	padding: 0 40px 5px 40px;
-}
-
-.video {
-	width: calc(100% - 80px);
-	border-radius: 2px;
-	margin: 0 40px 40px 40px;
-}
-
+.text-image,
+.text-image-annotated,
+.audio,
+.audio-annotated,
+.video,
 .video-annotated {
 	width: calc(100% - 80px);
 	border-radius: 2px;
+	margin: 0 40px 40px 40px;
+}
+
+.text-image-annotated,
+.audio-annotated,
+.video-annotated {
 	margin: 0 40px 5px 40px;
 }
 
+.image-annotation,
+.audio-annotation,
 .video-annotation {
 	display: block;
 	padding: 0 40px 40px 40px;
@@ -214,11 +204,11 @@ a.external:after {
 .note {
 	width: calc(100% - 80px);
 	padding: 40px 40px 40px 40px;
-	border-bottom: solid 40px #fff;
+	border-bottom: solid 40px var(--antiDefault);
 	margin: 0 40px 0 40px;
 	font-family: "Roboto Mono";
 	font-size: 13px;
-	background-color: #eee;
+	background-color: var(--background);
 }
 
 .quote {
@@ -229,7 +219,7 @@ a.external:after {
 	font-style: italic;
 	font-size: 20px;
 	line-height: 36px;
-	border-left: solid 1px #eee;
+	border-left: solid 1px var(--background);
 }
 
 .path {
@@ -282,11 +272,11 @@ a.external:after {
     overflow: auto;
     padding: 40px;
 	margin: auto;
-	border-left: solid 1px #eee;
-	border-right: solid 1px #eee;
-	border-bottom: solid 1px #eee;
+	border-left: solid 1px var(--background);
+	border-right: solid 1px var(--background);
+	border-bottom: solid 1px var(--background);
 	margin-bottom: 80px;
-	background-color: #fff;
+	background-color: var(--antiDefault);
 }
 
 /*-----------MEDIA-----------*/
