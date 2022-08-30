@@ -478,7 +478,7 @@ class Parser {
 		else $string = $string . '</p>';
 
 		//unclosed tags - ignore warnings when using DOMDocument for parsing
-		//add meta info to foce utf-8 encoding
+		//add meta info to force utf-8 encoding
 		$doc = new DOMDocument();
 		@$doc->loadHTML('<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $string);
 		$string = $doc->saveHTML();
