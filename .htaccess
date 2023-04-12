@@ -13,7 +13,7 @@ DirectoryIndex page.php
 
 # load query into root/page.php?v=...
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.+)$ /page.php?v=$1 [NC,L]
+RewriteRule ^(.+)$ /page.php?v=$1 [B,NC,L]
 
 # redirect errors
 ErrorDocument 404 https://v-os.ca/404-Error
